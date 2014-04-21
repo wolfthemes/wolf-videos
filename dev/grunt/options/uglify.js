@@ -1,7 +1,8 @@
 module.exports = {
 	
 	options: {
-		mangle: true
+		mangle: true,
+		banner : '/*! <%= app.name %> v<%= app.version %> */\n'
 	},
 
 	dist: {

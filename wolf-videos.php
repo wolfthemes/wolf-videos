@@ -3,11 +3,11 @@
  * Plugin Name: Wolf Videos
  * Plugin URI: http://wpwolf.com/plugin/wolf-videos
  * Description: A ready-to-use video gallery custom post type with Isotope filter.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: WpWolf
  * Author URI: http://wpwolf.com
  * Requires at least: 3.5
- * Tested up to: 3.8.1
+ * Tested up to: 3.9
  *
  * Text Domain: wolf
  * Domain Path: /lang/
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 	 * Contains the main functions for Wolf_Videos
 	 *
 	 * @class Wolf_Videos
-	 * @version 1.0.4
+	 * @version 1.0.5
 	 * @since 1.0.0
 	 * @package WolfVideos
 	 * @author WpWolf
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '1.0.4';
+		public $version = '1.0.5';
 
 		/**
 		 * @var string
@@ -153,7 +153,6 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 
 			// Core functions
 			include_once( 'includes/core-functions.php' );
-
 		}
 
 		/**
@@ -171,7 +170,6 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 			// Functions
 			include_once( 'includes/hooks.php' ); // Template hooks used on the front-end
 			include_once( 'includes/functions.php' ); // Contains functions for various front-end events
-			
 		}
 
 		/**
@@ -180,7 +178,6 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 		public function include_template_functions() {
 			
 			include_once( 'includes/template.php' );
-
 		}
 
 		/**
@@ -256,7 +253,6 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 			}
 
 			return false;
-
 		}
 
 		/**
@@ -283,7 +279,6 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 
 			// register post type
 			$this->register_taxonomy();
-
 		}
 
 		/**
@@ -295,7 +290,6 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 			$locale = apply_filters( 'wolf', get_locale(), $domain );
 			load_textdomain( $domain, WP_LANG_DIR.'/'.$domain.'/'.$domain.'-'.$locale.'.mo' );
 			load_plugin_textdomain( $domain, FALSE, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
-
 		}
 
 		/**
@@ -485,8 +479,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 
 				return $default;
 
-			}
-				
+			}	
 		}
 
 		/**
@@ -641,7 +634,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 
 			$loop = new WP_Query( $args );
 			if ( $loop->have_posts() ) : ?>
-				<ul class="shortcode-videos-grid video-grid-col-<?php echo absint( $count ); ?>">
+				<ul class="shortcode-videos-grid video-grid-col-<?php echo absint( $col ); ?>">
 					<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
 
 						<?php wolf_videos_get_template_part( 'content', 'video' ); ?>
@@ -656,7 +649,6 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 			$html = ob_get_contents();
 			ob_end_clean();
 			return $html;
-
 		}
 
 		/**
@@ -699,7 +691,6 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 		 */
 		public function plugin_path() {
 			if ( $this->plugin_path ) return $this->plugin_path;
-
 			return $this->plugin_path = untrailingslashit( plugin_dir_path( __FILE__ ) );
 		}
 
