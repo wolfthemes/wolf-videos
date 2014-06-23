@@ -3,11 +3,11 @@
  * Plugin Name: Wolf Videos
  * Plugin URI: http://wpwolf.com/plugin/wolf-videos
  * Description: A ready-to-use video gallery custom post type with Isotope filter.
- * Version: 1.0.5
+ * Version: 1.0.5.1
  * Author: WpWolf
  * Author URI: http://wpwolf.com
  * Requires at least: 3.5
- * Tested up to: 3.9
+ * Tested up to: 3.9.1
  *
  * Text Domain: wolf
  * Domain Path: /lang/
@@ -609,7 +609,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 		 * @param array $atts
 		 * @return string
 		 */
-		function shortcode( $atts ) {
+		public function shortcode( $atts ) {
 
 			extract(
 				shortcode_atts(

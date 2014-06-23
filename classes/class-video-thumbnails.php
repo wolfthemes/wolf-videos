@@ -471,7 +471,7 @@ if ( ! class_exists( 'Wolf_Videos_Video_Thumbnails' ) ) {
 					post_id: id
 				};
 
-				document.getElementById( 'video-thumbnail-preview' ).innerHTML= '<?php _e( 'videoing...', 'wolf' ); ?>... <img src="<?php echo admin_url( 'images/loading.gif' ); ?>"/>';
+				document.getElementById( 'video-thumbnail-preview' ).innerHTML= '<?php _e( 'fetching...', 'wolf' ); ?>... <img src="<?php echo admin_url( 'images/loading.gif' ); ?>"/>';
 
 				// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
 				jQuery.post( ajaxurl, data, function( response ) {
