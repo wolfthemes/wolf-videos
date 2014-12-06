@@ -42,7 +42,6 @@ if ( ! class_exists( 'Wolf_Videos_Video_Thumbnails' ) ) {
 		public function get_post_types() {
 
 			return array( 'video' );
-
 		}
 
 		/**

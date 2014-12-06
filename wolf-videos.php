@@ -3,11 +3,11 @@
  * Plugin Name: Wolf Videos
  * Plugin URI: http://wpwolf.com/plugin/wolf-videos
  * Description: A ready-to-use video gallery custom post type with Isotope filter.
- * Version: 1.0.5.1
+ * Version: 1.0.6
  * Author: WpWolf
  * Author URI: http://wpwolf.com
  * Requires at least: 3.5
- * Tested up to: 3.9.1
+ * Tested up to: 4.0
  *
  * Text Domain: wolf
  * Domain Path: /lang/
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 	 * Contains the main functions for Wolf_Videos
 	 *
 	 * @class Wolf_Videos
-	 * @version 1.0.5
+	 * @version 1.0.6
 	 * @since 1.0.0
 	 * @package WolfVideos
 	 * @author WpWolf
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '1.0.5';
+		public $version = '1.0.6';
 
 		/**
 		 * @var string
@@ -93,7 +93,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 			add_action( 'admin_notices', array( $this, 'create_page' ) );
 
 			// add video thumbnail image sizes
-			add_image_size( 'video-cover', 450, 253, true );
+			add_image_size( 'video-cover', 640, 360, true );
 
 			// Include required files
 			$this->includes();
@@ -104,15 +104,12 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 
 			// register shortcode
 			add_shortcode( 'wolf_last_videos', array( $this, 'shortcode' ) );
-
-			// styles
-			add_action( 'wp_print_styles', array( $this, 'print_styles' ) );
-
-			// scripts
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
+			
 			// set default options
 			add_action( 'after_setup_theme', array( $this, 'default_options' ) );
+
+			// Enqueue Stylesheet
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
 
 		/**
@@ -120,7 +117,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 		 */
 		public function activate( $network_wide ) {
 			
-			// do stuff
+			flush_rewrite_rules();
 		}
 
 		/**
@@ -188,29 +185,51 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 		 */
 		public function check_page() {
 
-			// delete_option( '_wolf_videos_page_id' );
-			// delete_option( 'wolf_video_settings' );
-			// var_dump( get_option('wolf_video_settings') );
-
 			$output    = '';
 			$theme_dir = get_template_directory();
 
+			//delete_option( '_wolf_videos_page_id' );
+			
+			if ( ! get_option( '_wolf_videos_needs_page' ) )
+				return;
+
 			if ( -1 == wolf_videos_get_page_id() && ! isset( $_GET['wolf_videos_create_page'] ) ) {
 
+				if ( isset( $_GET['skip_wolf_videos_setup'] ) ) {
+					delete_option( '_wolf_videos_needs_page' );
+					return;
+				}
+				
+				update_option( '_wolf_videos_needs_page', true );
+				
 				$message = '<strong>Wolf Videos</strong> ' . sprintf(
-					__( 'says : <em>Almost done! you need to <a href="%1$s">create a page</a> for your videos or <a href="%2$s">select an existing page</a> in the plugin settings</em>', 'wolf' ), 
+					__( 'says : <em>Almost done! you need to <a href="%1$s">create a page</a> for your videos or <a href="%2$s">select an existing page</a> in the plugin settings</em>.', 'wolf' ), 
 						esc_url( admin_url( '?wolf_videos_create_page=true' ) ),
 						esc_url( admin_url( 'edit.php?post_type=video&page=wolf-video-settings' ) )
 				);
 
-				$output = '<div class="updated"><p>';
+				$message .= sprintf(
+					__( '<br><br>
+						<a href="%1$s" class="button button-primary">Create a page</a>
+						&nbsp;
+						<a href="%2$s" class="button button-primary">Select an existing page</a>
+						&nbsp;
+						<a href="%3$s" class="button">Skip setup</a>', 'wolf' ), 
+						esc_url( admin_url( '?wolf_videos_create_page=true' ) ),
+						esc_url( admin_url( 'edit.php?post_type=video&page=wolf-video-settings' ) ),
+						esc_url( admin_url( '?skip_wolf_videos_setup=true' ) )
+				);
 
-				$output .= $message;
+				$output = '<div class="updated wolf-admin-notice wolf-plugin-admin-notice"><p>';
+
+					$output .= $message;
 
 				$output .= '</p></div>';
 
 				echo $output;
+			} else {
 
+				delete_option( '_wolf_videos_need_page' );
 			}
 
 			return false;
@@ -279,6 +298,9 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 
 			// register post type
 			$this->register_taxonomy();
+
+			// add body class
+			add_filter( 'body_class', array( $this, 'add_body_class' ) );
 		}
 
 		/**
@@ -305,7 +327,23 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 			$find = array();
 			$file = '';
 
-			if ( is_tax( 'video_type' ) ) {
+			if ( is_single() && get_post_type() == 'video' ) {
+
+				$file    = 'single-video.php';
+				$find[] = $file;
+				$find[] = $this->template_url . $file;
+
+			} elseif ( is_tax( 'video_type' ) ) {
+
+				$term = get_queried_object();
+
+				$file   = 'taxonomy-' . $term->taxonomy . '.php';
+				$find[] = 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
+				$find[] = $this->template_url . 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
+				$find[] = $file;
+				$find[] = $this->template_url . $file;
+
+			} elseif ( is_tax( 'video_tag' ) ) {
 
 				$term = get_queried_object();
 
@@ -326,29 +364,33 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 		}
 
 		/**
-		 * Print CSS styles
+		 * Add a specific body class on video index and taxonomy pages
 		 */
-		public function print_styles() {
+		public function add_body_class( $classes ) {
+			if ( 
+				! is_singular( 'video' )
+				&& ( 'video' == get_post_type() || ( function_exists( 'wolf_videos_get_page_id' ) && is_page( wolf_videos_get_page_id() ) ) )
+			) {
+				$classes[] = 'wolf-videos';
+				$classes[] = 'wolf-videos-cols-' . $this->get_option( 'col', 3 );
+			}
 
-			wp_enqueue_style( 'wolf-videos', $this->plugin_url() . '/assets/css/videos.min.css', array(), $this->version, 'all' );
-
+			return $classes;
 		}
 
 		/**
-		 * Enqueue JS script in footer
+		 * Enqueue scripts
 		 */
 		public function enqueue_scripts() {
+
+			wp_enqueue_style( 'wolf-videos', $this->plugin_url() . '/assets/css/videos.min.css', array(), $this->version, 'all' );
 
 			if ( $this->get_option( 'isotope' ) && is_page( wolf_videos_get_page_id() ) ) {
 
 				wp_enqueue_script( 'jquery' );
-				wp_enqueue_script( 'isotope', $this->plugin_url() . '/assets/js/lib/jquery.isotope.min.js', 'jquery', '1.5.25', true );
+				wp_enqueue_script( 'imagesloaded', $this->plugin_url() . '/assets/js/lib/imagesloaded.pkgd.min.js', 'jquery', '3.1.8', true );
+				wp_enqueue_script( 'isotope', $this->plugin_url() . '/assets/js/lib/isotope.pkgd.min.js', 'jquery', '2.0.1', true );
 				wp_enqueue_script( 'wolf-videos', $this->plugin_url() . '/assets/js/app.min.js', 'jquery', $this->version, true );
-				wp_localize_script(
-						'wolf-videos', 'WolfVideosParams', array(
-							'columns' => $this->get_option( 'col', 3 ),
-						)
-				);
 			}
 		}
 		
@@ -432,6 +474,36 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 			);
 
 			register_taxonomy( 'video_type', array( 'video' ), $args );
+
+			$labels = array( 
+				'name' => _x( 'Tags', 'wolf' ),
+				'singular_name' => _x( 'Tag', 'wolf' ),
+				'search_items' => _x( 'Search Tags', 'wolf' ),
+				'popular_items' => _x( 'Popular Tags', 'wolf' ),
+				'all_items' => _x( 'All Tags', 'wolf' ),
+				'parent_item' => _x( 'Parent Tag', 'wolf' ),
+				'parent_item_colon' => _x( 'Parent Tag:', 'wolf' ),
+				'edit_item' => _x( 'Edit Tag', 'wolf' ),
+				'update_item' => _x( 'Update Tag', 'wolf' ),
+				'add_new_item' => _x( 'Add New Tag', 'wolf' ),
+				'new_item_name' => _x( 'New Tag', 'wolf' ),
+				'separate_items_with_commas' => _x( 'Separate tags with commas', 'wolf' ),
+				'add_or_remove_items' => _x( 'Add or remove tags', 'wolf' ),
+				'choose_from_most_used' => _x( 'Choose from the most used tags', 'wolf' ),
+				'menu_name' => _x( 'Tags', 'wolf' ),
+			);
+
+			$args = array( 
+				
+				'hierarchical' => false,
+				'labels' => $labels,
+				'show_ui' => true,
+				'update_count_callback' => '_update_post_term_count',
+				'query_var' => true,
+				'rewrite' => array( 'slug' => 'video-tag', 'with_front' => false),
+			);
+
+	    		register_taxonomy( 'video_tag', array( 'video' ), $args );
 		}
 
 		
@@ -542,7 +614,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 		 * Use custom style
 		 */
 		public function setting_columns() {
-			$columns = array( 5, 4, 3 );
+			$columns = array( 1, 2, 3, 4, 5, 6 );
 			?>
 			<select name="wolf_video_settings[col]">
 				<?php foreach ( $columns as $column ) : ?>
@@ -634,13 +706,13 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 
 			$loop = new WP_Query( $args );
 			if ( $loop->have_posts() ) : ?>
-				<ul class="shortcode-videos-grid video-grid-col-<?php echo absint( $col ); ?>">
+				<div class="shortcode-video-grid videos-grid-col-<?php echo absint( $col ); ?>">
 					<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
 
 						<?php wolf_videos_get_template_part( 'content', 'video' ); ?>
 
 					<?php endwhile; ?>
-				</ul><!-- .shortcode-videos-grid -->
+				</div><!-- .shortcode-videos-grid -->
 			<?php else : // no video ?>
 				<?php wolf_videos_get_template( 'loop/no-video-found.php' ); ?>
 			<?php endif;
