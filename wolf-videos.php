@@ -3,7 +3,7 @@
  * Plugin Name: Wolf Videos
  * Plugin URI: http://wpwolf.com/plugin/wolf-videos
  * Description: A ready-to-use video gallery custom post type with Isotope filter.
- * Version: 1.0.6
+ * Version: 1.0.6.1
  * Author: WpWolf
  * Author URI: http://wpwolf.com
  * Requires at least: 3.5
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 	 * Contains the main functions for Wolf_Videos
 	 *
 	 * @class Wolf_Videos
-	 * @version 1.0.6
+	 * @version 1.0.6.1
 	 * @since 1.0.0
 	 * @package WolfVideos
 	 * @author WpWolf
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 		/**
 		 * @var string
 		 */
-		public $version = '1.0.6';
+		public $version = '1.0.6.1';
 
 		/**
 		 * @var string
@@ -332,6 +332,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 				$file    = 'single-video.php';
 				$find[] = $file;
 				$find[] = $this->template_url . $file;
+				$find[] = 'single.php';
 
 			} elseif ( is_tax( 'video_type' ) ) {
 
@@ -370,6 +371,7 @@ if ( ! class_exists( 'Wolf_Videos' ) ) {
 			if ( 
 				! is_singular( 'video' )
 				&& ( 'video' == get_post_type() || ( function_exists( 'wolf_videos_get_page_id' ) && is_page( wolf_videos_get_page_id() ) ) )
+				&& ! is_search()
 			) {
 				$classes[] = 'wolf-videos';
 				$classes[] = 'wolf-videos-cols-' . $this->get_option( 'col', 3 );
