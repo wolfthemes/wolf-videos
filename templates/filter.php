@@ -2,8 +2,8 @@
 /**
  * The Videos category filter
  *
- * @author WpWolf
- * @package WolfVideos/Templates
+ * @author %AUTHOR%
+ * @package %PACKAGENAME%/Templates
  * @since 1.0.3
  */
 
@@ -24,7 +24,7 @@ if ( $tax != array() ) :
 ?>
 <div id="videos-filter-container">
 	<ul id="videos-filter">
-		<li><a data-filter="video"<?php echo $active_class; ?> href="<?php echo esc_url( wolf_get_videos_url() ); ?>"><?php _e( 'All', 'wolf' ); ?></a></li>
+		<li><a data-filter="video"<?php echo $active_class; ?> href="<?php echo esc_url( wolf_get_videos_url() ); ?>"><?php _e( 'All', 'wolf-videos' ); ?></a></li>
 	<?php foreach ( $tax as $t ) : ?>
 		<?php if ( 0 != $t->count ) : ?>
 			<li>

@@ -2,8 +2,8 @@
 /**
  * Video Loop End
  *
- * @author WpWolf
- * @package WolfVideos/Templates
+ * @author %AUTHOR%
+ * @package %PACKAGENAME%/Templates
  * @since 1.0.3
  */
 ?>

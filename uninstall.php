@@ -1,12 +1,15 @@
 <?php
 /**
- * WolfVideos Uninstall
+ * %NAME% Uninstall
  *
- * Uninstalling WolfVideos
+ * Uninstalling %NAME%
  *
- * @author WpWolf
- * @package WolfVideos/Uninstaller
- * @since 1.0.3
+ * @author %AUTHOR%
+ * @category Core
+ * @package %PACKAGENAME%/Uninstaller
+ * @version %VERSION%
  */
-if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) 
-	exit();
+
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	exit;
+}

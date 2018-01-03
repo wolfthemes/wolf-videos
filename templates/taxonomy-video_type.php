@@ -4,8 +4,8 @@
  *
  * Override this template by copying it to yourtheme/wolf-videos/videos-template.php
  *
- * @author WpWolf
- * @package WolfVideos/Templates
+ * @author %AUTHOR%
+ * @package %PACKAGENAME%/Templates
  * @since 1.0.3
  */
 

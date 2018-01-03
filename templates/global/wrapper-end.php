@@ -2,8 +2,8 @@
 /**
  * Content wrappers
  *
- * @author WpWolf
- * @package WolfVideos/Templates
+ * @author %AUTHOR%
+ * @package %PACKAGENAME%/Templates
  * @since 1.0.3
  */
 
@@ -13,7 +13,9 @@ $template = get_option( 'template' );
 
 switch( $template ) {
 	case 'twentyeleven' :
-		echo '</div></div>';
+		echo '</div>';
+		get_sidebar( 'shop' );
+		echo '</div>';
 		break;
 	case 'twentytwelve' :
 		echo '</div></div>';
@@ -24,6 +26,15 @@ switch( $template ) {
 	case 'twentyfourteen' :
 		echo '</div></div></div>';
 		get_sidebar( 'content' );
+		break;
+	case 'twentyfifteen' :
+		echo '</div></div>';
+		break;
+	case 'twentysixteen' :
+		echo '</main></div>';
+		break;
+	case 'twentyseventeen' :
+		echo '</main></div></div>';
 		break;
 	default :
 		echo '</div></div>';

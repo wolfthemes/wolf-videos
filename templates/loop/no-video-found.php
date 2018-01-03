@@ -2,11 +2,11 @@
 /**
  * Displayed when no videos are found matching the current query.
  *
- * @author WpWolf
- * @package WolfVideos/Templates
+ * @author %AUTHOR%
+ * @package %PACKAGENAME%/Templates
  * @since 1.0.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ?>
-<p style="text-align:center;"><?php _e( 'Nothing found', 'wolf' ); ?></p>
+<p class="wolf-videos-not-found"><?php esc_html_e( 'Nothing found', 'wolf-videos' ); ?></p>

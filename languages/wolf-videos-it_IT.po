@@ -1,0 +1,250 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WolfVideos\n"
+"POT-Creation-Date: 2013-12-15 08:16+0100\n"
+"PO-Revision-Date: 2014-07-19 16:38+0100\n"
+"Last-Translator: Gigi Pastore <luigipastore@gmail.com>\n"
+"Language-Team: wpwolf.com\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.6\n"
+"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-Basepath: .\n"
+"Language: it_IT\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../wolf-videos.php:202
+#, php-format
+msgid ""
+"says : <em>Almost done! you need to create a template for your video gallery."
+"</em> <a href=\"%s\">Create a template</a>"
+msgstr ""
+"dice: <em>Ci siamo quasi! Devi creare un template per le tue gallerie video."
+"</em><a href=\"%s\">Crea un template</a>"
+
+#: ../wolf-videos.php:238
+msgid ""
+"Your video gallery template has been succesfully created. To create a video "
+"gallery page, add a new empty page using the \"videos\" template."
+msgstr ""
+"Il template per la video gallery &egrave; stato creato con successo. Per "
+"creare una pagina con la video gallery, aggiungi una nuova pagina vuota "
+"utilizzando il template \"video\"."
+
+#: ../wolf-videos.php:251
+#, php-format
+msgid ""
+"Error creating the %1$s template. Copy the file %2$s into your %3$s theme "
+"folder to fix this."
+msgstr ""
+"Errore nella creazione del template %1$s. Per correggere l'errore copia il "
+"file %2$s nella cartella del tema %3$s."
+
+#: ../wolf-videos.php:423 ../wolf-videos.php:435
+msgid "Videos"
+msgstr "Video"
+
+#: ../wolf-videos.php:424
+msgid "Video"
+msgstr "Video"
+
+#: ../wolf-videos.php:425
+msgid "Add New"
+msgstr "Aggiungi Nuovo"
+
+#: ../wolf-videos.php:426
+msgid "Add New Video"
+msgstr "Aggiundi Nuovo Video"
+
+#: ../wolf-videos.php:427
+msgid "All Videos"
+msgstr "Tutti i Video"
+
+#: ../wolf-videos.php:428
+msgid "Edit Video"
+msgstr "Modifica Video"
+
+#: ../wolf-videos.php:429
+msgid "New Video"
+msgstr "Nuovo Video"
+
+#: ../wolf-videos.php:430
+msgid "View Video"
+msgstr "Vedi Video"
+
+#: ../wolf-videos.php:431
+msgid "Search Videos"
+msgstr "Cerca Video"
+
+#: ../wolf-videos.php:432
+msgid "No videos found"
+msgstr "Nessun video trovato"
+
+#: ../wolf-videos.php:433
+msgid "No videos found in Trash"
+msgstr "Nessun video trovato nel Cestino"
+
+#: ../wolf-videos.php:479 ../wolf-videos.php:493
+msgid "Video Categories"
+msgstr "Categorie Video"
+
+#: ../wolf-videos.php:480
+msgid "Video Category"
+msgstr "Categoria Video"
+
+#: ../wolf-videos.php:481
+msgid "Search Video Categories"
+msgstr "Cerca Categorie Video"
+
+#: ../wolf-videos.php:482
+msgid "Popular Video Categories"
+msgstr "Categorie Video pi&ugrave; utilizzate"
+
+#: ../wolf-videos.php:483
+msgid "All Video Categories"
+msgstr "Tutte le Categorie Video"
+
+#: ../wolf-videos.php:484
+msgid "Parent Video Category"
+msgstr "Categori Video Genitore"
+
+#: ../wolf-videos.php:485
+msgid "Parent Video Category:"
+msgstr "Categoria Video Genitore:"
+
+#: ../wolf-videos.php:486
+msgid "Edit Video Category"
+msgstr "Modifica Categoria Video"
+
+#: ../wolf-videos.php:487
+msgid "Update Video Category"
+msgstr "Aggiorna Categoria Video"
+
+#: ../wolf-videos.php:488
+msgid "Add New Video Category"
+msgstr "Aggiungi Categoria Video"
+
+#: ../wolf-videos.php:489
+msgid "New Video Category"
+msgstr "Nuova Categoria Video"
+
+#: ../wolf-videos.php:490
+msgid "Separate tags with commas"
+msgstr "Separa i tag con le virgole"
+
+#: ../wolf-videos.php:491
+msgid "Add or remove tags"
+msgstr "Aggiungi o rimuovi tag"
+
+#: ../wolf-videos.php:492
+msgid "Choose from the most used tags"
+msgstr "Scegli tra i tag pi&ugrave; utilizzati"
+
+#: ../wolf-videos.php:525
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: ../wolf-videos.php:539
+msgid "Videos Shortcode"
+msgstr "Shortcode Video"
+
+#: ../wolf-videos.php:540
+msgid ""
+"To display your last videos in your post or page you can use the following "
+"shortcode."
+msgstr ""
+"Per visualizzare i tuoi ultimi video nei post o nelle pagine puoi usare il "
+"seguente shortcode."
+
+#: ../wolf-videos.php:542
+msgid "Additionally, you can add a count and/or a category attribute."
+msgstr "Inoltre, puoi aggiungere un attributo count e/o un attributo category."
+
+#: ../wolf-videos.php:575 ../templates/taxonomy-video_type.php:14
+#: ../templates/videos-template.php:52
+#, php-format
+msgid "Watch %s"
+msgstr "Vedi %s"
+
+#: ../wolf-videos.php:590 ../templates/taxonomy-video_type.php:29
+#: ../templates/videos-template.php:67
+msgid "No video yet"
+msgstr "Nessun video trovato"
+
+#: ../wolf-videos.php:639
+msgid "<span class=\"meta-nav\">&larr;</span> %title"
+msgstr "<span class=\"meta-nav\">&larr;</span> %title"
+
+#: ../wolf-videos.php:640
+msgid "%title <span class=\"meta-nav\">&rarr;</span>"
+msgstr "%title <span class=\"meta-nav\">&rarr;</span>"
+
+#: ../classes/class-video-thumbnails.php:76
+#, php-format
+msgid ""
+"Error retrieving video information from the URL <a href=\"%1$s\">%1$s</a>."
+"<br />\n"
+"\t\t\t\t\t\t<a href=\"%2$s\">Libcurl error</a> %3$s: <code>%4$s</code>. \n"
+"\t\t\t\t\t\tIf opening that URL in your web browser returns anything else "
+"than an error page, \n"
+"\t\t\t\t\t\tthe problem may be related to your web server and might be "
+"something your host administrator can solve."
+msgstr ""
+"Errore nel recupero delle informazioni video dall'URL <a href=\"%1$s\">%1$s</"
+"a>.<br />\n"
+"\t\t\t\t\t\t<a href=\"%2$s\">Libcurl error</a> %3$s: <code>%4$s</code>. \n"
+"\t\t\t\t\t\t Se aprendo l'URL nel tuo browser non restituisce una pagina "
+"d'errore, \n"
+"\t\t\t\t\t\til problema potrebbe riguardare il tuo web server e potrebbe "
+"essere risolto dal tuo amministratore di sistema."
+
+#: ../classes/class-video-thumbnails.php:439
+#: ../classes/class-video-thumbnails.php:597
+msgid "Reset"
+msgstr "Reset"
+
+#: ../classes/class-video-thumbnails.php:440
+#: ../classes/class-video-thumbnails.php:598
+msgid "Delete"
+msgstr "Elimina"
+
+#: ../classes/class-video-thumbnails.php:464
+msgid "Remove featured image"
+msgstr "Elimina immagine copertina"
+
+#: ../classes/class-video-thumbnails.php:475
+msgid "videoing..."
+msgstr ""
+
+#: ../classes/class-video-thumbnails.php:523
+msgid "Set featured image"
+msgstr "Imposta immagine copertina"
+
+#: ../classes/class-video-thumbnails.php:593
+msgid "No video URL in the post."
+msgstr "Nessun URL video nel post."
+
+#: ../classes/class-video-thumbnails.php:594
+msgid ""
+"A video has been attached to this post. Click on \"Generate\" to create a "
+"thumbnail from this video"
+msgstr ""
+"Un video &egrave; stato aggiunto a questo post. Clicca su \"Genera\" per "
+"creare un'immagine di anteprima di questo video"
+
+#: ../classes/class-video-thumbnails.php:595
+msgid ""
+"You will be able to generate a video thumbnail and use it as featured image "
+"for this post when it is published."
+msgstr ""
+"Potrai creare un'immagine d'anteprima di questo video e utilizzarla come "
+"immagine di copertina di questo post quando lo pubblicherai."
+
+#: ../classes/class-video-thumbnails.php:596
+msgid "Generate"
+msgstr "Genera"
+
+#: ../templates/videos-template.php:24
+msgid "All"
+msgstr "Tutti"
