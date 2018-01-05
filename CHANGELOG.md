@@ -1,6 +1,7 @@
-#### 3rd January 2018 - Version 1.2.4
+#### 5th January 2018 - Version 1.2.5
 
 * Tweak: Set video URL meta on post save
+* Other: Don't set the generated video thumbnail as featured image automatically
 
 #### 22nd September 2017 - Version 1.2.3
 

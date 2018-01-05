@@ -486,13 +486,13 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 					
 					document.getElementById( 'video-thumbnail-preview' ).innerHTML= response;
 					
-					jQuery( '#postimagediv .inside #set-post-thumbnail' ).empty().html( response );
+					//jQuery( '#postimagediv .inside #set-post-thumbnail' ).empty().html( response );
 					jQuery( '#remove-post-thumbnail' ).remove();
 					jQuery( '#video-thumbnail-delete' ).remove();
 					
 					
 
-					jQuery( '#postimagediv .inside' ).append( removeFeaturedImg );
+					//jQuery( '#postimagediv .inside' ).append( removeFeaturedImg );
 					jQuery( '#video-thumbnail-action' ).append( deleteLink );
 					jQuery( '#video-thumbnail-reset' ).empty().append( resetText );
 				} );
@@ -526,8 +526,8 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 				};
 
 				jQuery.post( ajaxurl, data, function( response ) {
-					jQuery( '#postimagediv .inside #set-post-thumbnail' ).empty().html( '<?php esc_html_e( 'Set featured image', '%TEXTDOMAIN%' ); ?>' );
-					jQuery( '#remove-post-thumbnail' ).remove();
+					//jQuery( '#postimagediv .inside #set-post-thumbnail' ).empty().html( '<?php esc_html_e( 'Set featured image', '%TEXTDOMAIN%' ); ?>' );
+					//jQuery( '#remove-post-thumbnail' ).remove();
 				} );
 			}
 			</script>
