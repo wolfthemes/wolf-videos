@@ -1,3 +1,8 @@
+#### 7th May 2018 - Version 1.2.7
+
+* Tweak: Add post state in admin
+* Tweak: Add post thumbnail in admin post list
+
 #### 5th January 2018 - Version 1.2.5
 
 * Tweak: Set video URL meta on post save

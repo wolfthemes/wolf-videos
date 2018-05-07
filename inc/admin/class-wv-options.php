@@ -67,7 +67,7 @@ class WV_Options {
 		add_settings_section( 'wolf-videos-settings', '', array( $this, 'section_intro' ), 'wolf-videos-settings' );
 		add_settings_field( 'page_id', esc_html__( 'Videos page', '%TEXTDOMAIN%' ), array( $this, 'setting_page_id' ), 'wolf-videos-settings', 'wolf-videos-settings' );
 		add_settings_field( 'columns', esc_html__( 'Max number of column', '%TEXTDOMAIN%' ), array( $this, 'setting_columns' ), 'wolf-videos-settings', 'wolf-videos-settings', array( 'class' => 'wolf-videos-settings-columns' ) );
-		add_settings_field( 'isotope', esc_html__( 'Use Isotope filter', '%TEXTDOMAIN%' ), array( $this, 'setting_isotope' ), 'wolf-videos-settings', 'wolf-videos-settings', array( 'class' => 'wolf-videos-settings-columns' ) );
+		add_settings_field( 'isotope', esc_html__( 'Use Isotope filter', '%TEXTDOMAIN%' ), array( $this, 'setting_isotope' ), 'wolf-videos-settings', 'wolf-videos-settings', array( 'class' => 'wolf-videos-settings-isotope' ) );
 	}
 
 	/**
@@ -103,12 +103,22 @@ class WV_Options {
 	 *
 	 */
 	public function setting_page_id() {
+		$page_option = array( '' => esc_html__( '- Disabled -', '%TEXTDOMAIN%' ) );
 		$pages = get_pages();
+
+		foreach ( $pages as $page ) {
+
+			if ( get_post_field( 'post_parent', $page->ID ) ) {
+				$page_option[ absint( $page->ID ) ] = '&nbsp;&nbsp;&nbsp; ' . sanitize_text_field( $page->post_title );
+			} else {
+				$page_option[ absint( $page->ID ) ] = sanitize_text_field( $page->post_title );
+			}
+		}
 		?>
 		<select name="wolf_videos_settings[page_id]">
 			<option value="-1"><?php esc_html_e( 'Select a page...', '%TEXTDOMAIN%' ); ?></option>
-			<?php foreach ( $pages as $page ) : ?>
-				<option value="<?php echo absint( $page->ID ); ?>" <?php selected( absint( $page->ID ), get_option( '_wolf_videos_page_id' ) ); ?>><?php echo sanitize_text_field( $page->post_title ); ?></option>
+			<?php foreach ( $page_option as $k => $v ) : ?>
+				<option value="<?php echo absint( $k ); ?>" <?php selected( absint( $k ), get_option( '_wolf_videos_page_id' ) ); ?>><?php echo sanitize_text_field( $v ); ?></option>
 			<?php endforeach; ?>
 		</select>
 		<?php

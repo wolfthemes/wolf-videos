@@ -61,6 +61,10 @@ class WV_Admin {
 		add_action( 'edit_form_after_title', array( $this, 'is_index_page' ) );
 		add_action( 'admin_init', array( $this, 'hide_editor' ) );
 		add_action( 'admin_head', array( $this, 'hide_wpb_editor' ) );
+
+		// Add columns to post list
+		add_filter( 'manage_video_posts_columns', array( $this, 'admin_columns_head_video_thumb' ), 10 );
+		add_action( 'manage_video_posts_custom_column', array( $this, 'admin_columns_content_video_thumb' ), 10, 2 );
 	}
 
 	/**
@@ -115,7 +119,7 @@ class WV_Admin {
 						)
 					),
 					esc_url( admin_url( '?wolf_videos_create_page=true' ) ),
-					esc_url( admin_url( 'edit.php?post_type=work&page=wolf-work-settings' ) )
+					esc_url( admin_url( 'edit.php?post_type=video&page=wolf-videos-settings' ) )
 			);
 
 			$message .= sprintf(
@@ -239,6 +243,36 @@ class WV_Admin {
 			}
 			</style>
 			<?php
+		}
+	}
+
+	/**
+	 * Add thumbnail column head in admin posts list
+	 *
+	 * @param array $columns
+	 * @return array $columns
+	 */
+	public function admin_columns_head_video_thumb( $columns ) {
+
+		$columns['video_thumbnail']   = esc_html__( 'Thumbnail', '%TEXTDOMAIN%' );
+		return $columns;
+	}
+
+	/**
+	 * Add thumbnail column in admin posts list
+	 *
+	 * @param string $column_name
+	 * @param int $post_id
+	 */
+	public function admin_columns_content_video_thumb( $column_name, $post_id ) {
+
+		$thumbnail = get_the_post_thumbnail();
+
+		if ( 'video_thumbnail' == $column_name ) {
+
+			if ( $thumbnail ) {
+				echo '<a href="' . get_edit_post_link() . '" title="' . esc_attr( sprintf( esc_html__( 'Edit "%s"', '%TEXTDOMAIN%' ), get_the_title() ) ) . '">' . get_the_post_thumbnail( '', array( 80, 45 ), array( 'style' => 'max-width:80px;height:auto;' ) ) . '</a>';
+			}
 		}
 	}
 

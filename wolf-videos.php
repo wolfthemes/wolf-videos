@@ -20,7 +20,7 @@
  * Verified customers however, who have purchased a premium theme
  * at https://themeforest.net/user/Wolf-Themes/portfolio?ref=Wolf-Themes
  * will have access to support for this plugin in the forums
- * https://help.wolfthemes.com/
+ * https://wolfthemes.ticksy.com/
  *
  * Copyright (C) 2013 Constantin Saguin
  * This WordPress Plugin is a free software: you can redistribute it and/or modify

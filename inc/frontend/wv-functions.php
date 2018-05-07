@@ -48,6 +48,3 @@ function wolf_videos_template_redirect() {
 		exit();
 	}
 }
-
-
-
