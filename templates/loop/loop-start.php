@@ -2,8 +2,8 @@
 /**
  * Video Loop Start
  *
- * @author %AUTHOR%
- * @package %PACKAGENAME%/Templates
+ * @author WolfThemes
+ * @package WolfVideos/Templates
  * @since 1.0.3
  */
 $columns = wolf_videos_get_option( 'col', 4 );

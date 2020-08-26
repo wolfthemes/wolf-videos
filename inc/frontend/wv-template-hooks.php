@@ -4,9 +4,9 @@
  *
  * Action/filter hooks used for WolfVideos functions/templates
  *
- * @author %AUTHOR%
+ * @author WolfThemes
  * @category Core
- * @package %PACKAGENAME%/Templates
+ * @package WolfVideos/Templates
  * @since 1.0.3
  */
 

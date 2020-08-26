@@ -1,23 +1,6 @@
-# build and dist
+# ignore assets, build & dist etc...
+dev
 pack
-
-# Ignore sass cache
-**/.sass-cache
-
-# Ignore grunt stuff
-**/node_modules
-**/.grunt
-
-# Ignore bower components
-**/bower_components
-
-# Ignore private stuff
-*.ftppass
-app.config.json
-
-# Sublime Text 2
-*.sublime-project
-*.sublime-workspace
 
 # Windows image file caches
 Thumbs.db
@@ -27,3 +10,4 @@ Desktop.ini
 
 # Mac crap
 .DS_Store
+/vendor/

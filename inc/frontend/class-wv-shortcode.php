@@ -3,16 +3,14 @@
  * %NAME% Shortcode.
  *
  * @class WV_Shortcode
- * @author %AUTHOR%
+ * @author WolfThemes
  * @category Core
  * @package WolfPageBuilder/Shortcode
  * @version %VERSION%
  * @since 1.2.6
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * WV_Shortcode class.

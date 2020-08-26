@@ -2,8 +2,8 @@
 /**
  * Displayed when no videos are found matching the current query.
  *
- * @author %AUTHOR%
- * @package %PACKAGENAME%/Templates
+ * @author WolfThemes
+ * @package WolfVideos/Templates
  * @since 1.0.3
  */
 

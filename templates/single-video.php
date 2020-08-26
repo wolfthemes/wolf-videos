@@ -4,8 +4,8 @@
  *
  * Override this template by copying it to yourtheme/wolf-videos/single-video.php
  *
- * @author %AUTHOR%
- * @package %PACKAGENAME%/Templates
+ * @author WolfThemes
+ * @package WolfVideos/Templates
  */
 get_header( 'videos' ); 
 ?>

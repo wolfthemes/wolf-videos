@@ -3,15 +3,13 @@
  * %NAME% Options.
  *
  * @class WV_Options
- * @author %AUTHOR%
+ * @author WolfThemes
  * @category Admin
- * @package %PACKAGENAME%/Admin
+ * @package WolfVideos/Admin
  * @version %VERSION%
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * WV_Options class.
@@ -36,8 +34,8 @@ class WV_Options {
 	 */
 	public function add_settings_menu() {
 
-		add_submenu_page( 'edit.php?post_type=video', esc_html__( 'Settings', '%TEXTDOMAIN%' ), esc_html__( 'Settings', '%TEXTDOMAIN%' ), 'edit_plugins', 'wolf-videos-settings', array( $this, 'options_form' ) );
-		add_submenu_page( 'edit.php?post_type=video', esc_html__( 'Shortcode', '%TEXTDOMAIN%' ), esc_html__( 'Shortcode', '%TEXTDOMAIN%' ), 'edit_plugins', 'wolf-videos-shortcode', array( $this, 'help' ) );
+		add_submenu_page( 'edit.php?post_type=video', esc_html__( 'Settings', 'wolf-videos' ), esc_html__( 'Settings', 'wolf-videos' ), 'edit_plugins', 'wolf-videos-settings', array( $this, 'options_form' ) );
+		add_submenu_page( 'edit.php?post_type=video', esc_html__( 'Shortcode', 'wolf-videos' ), esc_html__( 'Shortcode', 'wolf-videos' ), 'edit_plugins', 'wolf-videos-shortcode', array( $this, 'help' ) );
 	}
 
 	/**
@@ -65,9 +63,9 @@ class WV_Options {
 
 		register_setting( 'wolf-videos-settings', 'wolf_videos_settings', array( $this, 'settings_validate' ) );
 		add_settings_section( 'wolf-videos-settings', '', array( $this, 'section_intro' ), 'wolf-videos-settings' );
-		add_settings_field( 'page_id', esc_html__( 'Videos page', '%TEXTDOMAIN%' ), array( $this, 'setting_page_id' ), 'wolf-videos-settings', 'wolf-videos-settings' );
-		add_settings_field( 'columns', esc_html__( 'Max number of column', '%TEXTDOMAIN%' ), array( $this, 'setting_columns' ), 'wolf-videos-settings', 'wolf-videos-settings', array( 'class' => 'wolf-videos-settings-columns' ) );
-		add_settings_field( 'isotope', esc_html__( 'Use Isotope filter', '%TEXTDOMAIN%' ), array( $this, 'setting_isotope' ), 'wolf-videos-settings', 'wolf-videos-settings', array( 'class' => 'wolf-videos-settings-isotope' ) );
+		add_settings_field( 'page_id', esc_html__( 'Videos page', 'wolf-videos' ), array( $this, 'setting_page_id' ), 'wolf-videos-settings', 'wolf-videos-settings' );
+		add_settings_field( 'columns', esc_html__( 'Max number of column', 'wolf-videos' ), array( $this, 'setting_columns' ), 'wolf-videos-settings', 'wolf-videos-settings', array( 'class' => 'wolf-videos-settings-columns' ) );
+		add_settings_field( 'isotope', esc_html__( 'Use Isotope filter', 'wolf-videos' ), array( $this, 'setting_isotope' ), 'wolf-videos-settings', 'wolf-videos-settings', array( 'class' => 'wolf-videos-settings-isotope' ) );
 	}
 
 	/**
@@ -103,7 +101,7 @@ class WV_Options {
 	 *
 	 */
 	public function setting_page_id() {
-		$page_option = array( '' => esc_html__( '- Disabled -', '%TEXTDOMAIN%' ) );
+		$page_option = array( '' => esc_html__( '- Disabled -', 'wolf-videos' ) );
 		$pages = get_pages();
 
 		foreach ( $pages as $page ) {
@@ -116,7 +114,7 @@ class WV_Options {
 		}
 		?>
 		<select name="wolf_videos_settings[page_id]">
-			<option value="-1"><?php esc_html_e( 'Select a page...', '%TEXTDOMAIN%' ); ?></option>
+			<option value="-1"><?php esc_html_e( 'Select a page...', 'wolf-videos' ); ?></option>
 			<?php foreach ( $page_option as $k => $v ) : ?>
 				<option value="<?php echo absint( $k ); ?>" <?php selected( absint( $k ), get_option( '_wolf_videos_page_id' ) ); ?>><?php echo sanitize_text_field( $v ); ?></option>
 			<?php endforeach; ?>
@@ -135,7 +133,7 @@ class WV_Options {
 			<option <?php selected( $column, wolf_videos_get_option( 'col', 4 ) ); ?>><?php echo absint( $column ); ?></option>
 			<?php endforeach; ?>
 		</select>
-		<?php esc_html_e( 'Number of column on desktop screen', '%TEXTDOMAIN%' ); ?>
+		<?php esc_html_e( 'Number of column on desktop screen', 'wolf-videos' ); ?>
 		<?php
 	}
 
@@ -156,10 +154,10 @@ class WV_Options {
 	public function help() {
 		?>
 		<div class="wrap">
-			<h2><?php esc_html_e( 'Videos shortcode', '%TEXTDOMAIN%' ) ?></h2>
-			<p><?php esc_html_e( 'To display your last videos in your post or page you can use the following shortcode.', '%TEXTDOMAIN%' ); ?></p>
+			<h2><?php esc_html_e( 'Videos shortcode', 'wolf-videos' ) ?></h2>
+			<p><?php esc_html_e( 'To display your last videos in your post or page you can use the following shortcode.', 'wolf-videos' ); ?></p>
 			<p><code>[wolf_last_videos]</code></p>
-			<p><?php esc_html_e( 'Additionally, you can add a count, columns, tag and category attributes.', '%TEXTDOMAIN%' ); ?></p>
+			<p><?php esc_html_e( 'Additionally, you can add a count, columns, tag and category attributes.', 'wolf-videos' ); ?></p>
 			<p><code>[wolf_last_videos col="2|3|4" count="4" category="my-category" tag="my-tag"]</code></p>
 		</div>
 		<?php
@@ -173,16 +171,16 @@ class WV_Options {
 		?>
 		<div class="wrap">
 			<div id="icon-options-general" class="icon32"></div>
-			<h2><?php esc_html_e( 'Videos options', '%TEXTDOMAIN%' ); ?></h2>
+			<h2><?php esc_html_e( 'Videos options', 'wolf-videos' ); ?></h2>
 			<?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
 			<div id="setting-error-settings_updated" class="updated settings-error">
-				<p><strong><?php esc_html_e( 'Settings saved.', '%TEXTDOMAIN%' ); ?></strong></p>
+				<p><strong><?php esc_html_e( 'Settings saved.', 'wolf-videos' ); ?></strong></p>
 			</div>
 			<?php } ?>
 			<form action="options.php" method="post">
 				<?php settings_fields( 'wolf-videos-settings' ); ?>
 				<?php do_settings_sections( 'wolf-videos-settings' ); ?>
-				<p class="submit"><input name="save" type="submit" class="button-primary" value="<?php _e( 'Save Changes', '%TEXTDOMAIN%' ); ?>" /></p>
+				<p class="submit"><input name="save" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'wolf-videos' ); ?>" /></p>
 			</form>
 		</div>
 		<?php

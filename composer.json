@@ -1,0 +1,16 @@
+{
+	"name": "wolfthemes/wolf-videos",
+	"description": "A video gallery post type for your site.",
+	"type": "wordpress-plugin",
+	"homepage": "https://github.com/wolfthemes/wolf-videos",
+	"authors": [
+		{
+			"name": "WolfThemes",
+			"email": "contact@wolfthemes.com",
+			"homepage": "https://wolfthemes.com"
+		}
+	],
+	"require": {
+		"php": ">=5.6"
+	}
+}

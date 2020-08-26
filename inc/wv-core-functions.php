@@ -4,15 +4,13 @@
  *
  * Functions available on both the front-end and admin.
  *
- * @author %AUTHOR%
+ * @author WolfThemes
  * @category Core
- * @package %PACKAGENAME%/Functions
+ * @package WolfVideos/Functions
  * @since 1.0.3
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 // Hack for old php versions to use boolval()
 if ( ! function_exists( 'boolval' ) ) {

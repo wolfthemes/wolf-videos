@@ -4,15 +4,13 @@
  *
  * Functions available on both the front-end and admin.
  *
- * @author %AUTHOR%
+ * @author WolfThemes
  * @category Admin
- * @package %PACKAGENAME%/Functions
+ * @package WolfVideos/Functions
  * @since 1.2.4
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Generate and save video URL and iframe code as meta when the post is saved
@@ -68,7 +66,7 @@ function wvc_set_video_meta( $post_id ) {
 
 			update_post_meta( $post_id, '_wv_video_iframe', $iframe );
 
-			$iframe_bg .= '<iframe class="wv-vimeo-bg" src="https://player.vimeo.com/video/' . esc_attr( $vimeo_id ) . '?autoplay=1&loop=1&byline=0&title=0&background=1"></iframe>';
+			$iframe_bg = '<iframe class="wv-vimeo-bg" src="https://player.vimeo.com/video/' . esc_attr( $vimeo_id ) . '?autoplay=1&loop=1&byline=0&title=0&background=1"></iframe>';
 
 			update_post_meta( $post_id, '_wv_video_iframe_bg', $iframe_bg );
 

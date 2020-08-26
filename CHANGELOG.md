@@ -1,3 +1,4 @@
+# Changelog
 #### 7th May 2018 - Version 1.2.7
 
 * Tweak: Add post state in admin

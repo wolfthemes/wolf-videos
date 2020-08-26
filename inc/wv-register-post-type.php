@@ -2,9 +2,9 @@
 /**
  * %NAME% register post type
  *
- * @author %AUTHOR%
+ * @author WolfThemes
  * @category Core
- * @package %PACKAGENAME%/Admin
+ * @package WolfVideos/Admin
  * @version %VERSION%
  */
 
@@ -13,19 +13,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $labels = array(
-	'name' => esc_html__( 'Videos', '%TEXTDOMAIN%' ),
-	'singular_name' => esc_html__( 'Video', '%TEXTDOMAIN%' ),
-	'add_new' => esc_html__( 'Add New', '%TEXTDOMAIN%' ),
-	'add_new_item' => esc_html__( 'Add New Video', '%TEXTDOMAIN%' ),
-	'all_items'  => esc_html__( 'All Videos', '%TEXTDOMAIN%' ),
-	'edit_item' => esc_html__( 'Edit Video', '%TEXTDOMAIN%' ),
-	'new_item' => esc_html__( 'New Video', '%TEXTDOMAIN%' ),
-	'view_item' => esc_html__( 'View Video', '%TEXTDOMAIN%' ),
-	'search_items' => esc_html__( 'Search Videos', '%TEXTDOMAIN%' ),
-	'not_found' => esc_html__( 'No Videos found', '%TEXTDOMAIN%' ),
-	'not_found_in_trash' => esc_html__( 'No Videos found in Trash', '%TEXTDOMAIN%' ),
+	'name' => esc_html__( 'Videos', 'wolf-videos' ),
+	'singular_name' => esc_html__( 'Video', 'wolf-videos' ),
+	'add_new' => esc_html__( 'Add New', 'wolf-videos' ),
+	'add_new_item' => esc_html__( 'Add New Video', 'wolf-videos' ),
+	'all_items'  => esc_html__( 'All Videos', 'wolf-videos' ),
+	'edit_item' => esc_html__( 'Edit Video', 'wolf-videos' ),
+	'new_item' => esc_html__( 'New Video', 'wolf-videos' ),
+	'view_item' => esc_html__( 'View Video', 'wolf-videos' ),
+	'search_items' => esc_html__( 'Search Videos', 'wolf-videos' ),
+	'not_found' => esc_html__( 'No Videos found', 'wolf-videos' ),
+	'not_found_in_trash' => esc_html__( 'No Videos found in Trash', 'wolf-videos' ),
 	'parent_item_colon' => '',
-	'menu_name' => esc_html__( 'Videos', '%TEXTDOMAIN%' ),
+	'menu_name' => esc_html__( 'Videos', 'wolf-videos' ),
 );
 
 $args = array(
@@ -45,7 +45,7 @@ $args = array(
 	'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'custom-fields', 'comments' ),
 	'exclude_from_search' => false,
 
-	'description' => esc_html__( 'Present your video', '%TEXTDOMAIN%' ),
+	'description' => esc_html__( 'Present your video', 'wolf-videos' ),
 	'menu_icon' => 'dashicons-format-video',
 );
 
