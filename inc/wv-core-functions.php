@@ -1,6 +1,6 @@
 <?php
 /**
- * %NAME% Core Functions
+ * Videos Core Functions
  *
  * Functions available on both the front-end and admin.
  *

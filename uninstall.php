@@ -1,13 +1,13 @@
 <?php
 /**
- * %NAME% Uninstall
+ * Videos Uninstall
  *
- * Uninstalling %NAME%
+ * Uninstalling Videos
  *
  * @author WolfThemes
  * @category Core
  * @package WolfVideos/Uninstaller
- * @version %VERSION%
+ * @version 1.2.8
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;

@@ -1,11 +1,11 @@
 <?php
 /**
- * %NAME% register post type
+ * Videos register post type
  *
  * @author WolfThemes
  * @category Core
  * @package WolfVideos/Admin
- * @version %VERSION%
+ * @version 1.2.8
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

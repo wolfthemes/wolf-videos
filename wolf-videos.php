@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Wolf Videos
+ * Plugin Name: Videos
  * Plugin URI: https://wlfthm.es/wolf-videos
- * Description: %DESCRIPTION%
- * Version: %VERSION%
+ * Description: A video gallery post type for your site.
+ * Version: 1.2.8
  * Author: WolfThemes
  * Author URI: https://wolfthemes.com
  * Requires at least: 5.0
@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
  * Contains the main functions for Wolf_Videos
  *
  * @class Wolf_Videos
- * @version %VERSION%
+ * @version 1.2.8
  * @since 1.0.0
  * @package WolfDiscography
  * @author WolfThemes
@@ -44,10 +44,10 @@ class Wolf_Videos {
 	/**
 	 * @var string
 	 */
-	public $version = '%VERSION%';
+	public $version = '1.2.8';
 
 	/**
-	 * @var %NAME% The single instance of the class
+	 * @var Videos The single instance of the class
 	 */
 	protected static $_instance = null;
 
@@ -59,7 +59,7 @@ class Wolf_Videos {
 	/**
 	 * @var the support forum URL
 	 */
-	private $support_url = 'https://docs.wolfthemes.com/';
+	private $support_url = 'https://wlfthm.es/help';
 
 	/**
 	 * @var string
@@ -67,13 +67,13 @@ class Wolf_Videos {
 	public $template_url;
 
 	/**
-	 * Main %NAME% Instance
+	 * Main Videos Instance
 	 *
-	 * Ensures only one instance of %NAME% is loaded or can be loaded.
+	 * Ensures only one instance of Videos is loaded or can be loaded.
 	 *
 	 * @static
 	 * @see WE()
-	 * @return %NAME% - Main instance
+	 * @return Videos - Main instance
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) ) {
@@ -83,7 +83,7 @@ class Wolf_Videos {
 	}
 
 	/**
-	 * %NAME% Constructor.
+	 * Videos Constructor.
 	 */
 	public function __construct() {
 
@@ -109,7 +109,7 @@ class Wolf_Videos {
 
 			printf(
 				esc_html__( '%1$s needs at least PHP %2$s installed on your server. You have version %3$s currently installed. Please contact your hosting service provider if you\'re not able to update PHP by yourself.', 'wolf-videos' ),
-				'%NAME%',
+				'Videos',
 				$this->required_php_version,
 				phpversion()
 			);
@@ -165,7 +165,6 @@ class Wolf_Videos {
 			'WV_SLUG' => plugin_basename( dirname( __FILE__ ) ),
 			'WV_PATH' => plugin_basename( __FILE__ ),
 			'WV_VERSION' => $this->version,
-			'WV_UPDATE_URL' => $this->update_url,
 			'WV_SUPPORT_URL' => $this->support_url,
 			'WV_DOC_URI' => 'https://docs.wolfthemes.com/documentation/plugins/' . plugin_basename( dirname( __FILE__ ) ),
 			'WV_WOLF_DOMAIN' => 'wolfthemes.com',
@@ -227,7 +226,7 @@ class Wolf_Videos {
 	}
 
 	/**
-	 * Function used to Init %NAME% Template Functions - This makes them pluggable by plugins and themes.
+	 * Function used to Init Videos Template Functions - This makes them pluggable by plugins and themes.
 	 */
 	public function include_template_functions() {
 		include_once( 'inc/frontend/wv-template-functions.php' );
@@ -244,7 +243,7 @@ class Wolf_Videos {
 	}
 
 	/**
-	 * Init %NAME% when WordPress Initialises.
+	 * Init Videos when WordPress Initialises.
 	 */
 	public function init() {
 		// Before init action

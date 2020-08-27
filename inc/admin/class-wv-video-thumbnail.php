@@ -1,6 +1,6 @@
 <?php
 /**
- * %NAME% Video thumbnail generator
+ * Videos Video thumbnail generator
  *
  * Supports vimeo and youtube
  *

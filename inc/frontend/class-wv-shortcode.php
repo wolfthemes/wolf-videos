@@ -1,12 +1,12 @@
 <?php
 /**
- * %NAME% Shortcode.
+ * Videos Shortcode.
  *
  * @class WV_Shortcode
  * @author WolfThemes
  * @category Core
  * @package WolfPageBuilder/Shortcode
- * @version %VERSION%
+ * @version 1.2.8
  * @since 1.2.6
  */
 

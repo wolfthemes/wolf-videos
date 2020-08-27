@@ -1,12 +1,12 @@
 <?php
 /**
- * %NAME% Metaboxes.
+ * Videos Metaboxes.
  *
  * @class WV_Admin_Metabox
  * @author WolfThemes
  * @category Admin
  * @package WolfVideos/Admin
- * @version %VERSION%
+ * @version 1.2.8
  */
 
 defined( 'ABSPATH' ) || exit;

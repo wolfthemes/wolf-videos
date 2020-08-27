@@ -1,12 +1,12 @@
 <?php
 /**
- * %NAME% Admin.
+ * Videos Admin.
  *
  * @class WV_Admin
  * @author WolfThemes
  * @category Admin
  * @package WolfVideos/Admin
- * @version %VERSION%
+ * @version 1.2.8
  */
 
 defined( 'ABSPATH' ) || exit;
