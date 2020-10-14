@@ -27,18 +27,18 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 		 */
 		public function __construct() {
 
-			// Init
+			// Init.
 			add_action( 'admin_init', array( $this, 'add_metabox' ) );
 
-			// Inline CSS
+			// Inline CSS.
 			add_action( 'admin_head', array( $this, 'add_inline_styles' ) );
-			
-			// AJAX callback
+
+			// AJAX callback.
 			add_action( 'wp_ajax_video_thumbnail', array( $this, 'video_thumbnail_callback' ) );
 			add_action( 'wp_ajax_video_thumbnail_delete', array( $this, 'video_thumbnail_delete_callback' ) );
 			add_action( 'wp_ajax_wolf_thumbnail_delete', array( $this, 'thumbnail_delete_callback' ) );
 
-			// AJAX Searching
+			// AJAX Searching.
 			if ( in_array( basename( $_SERVER['PHP_SELF'] ), apply_filters( 'video_thumbnail_editor_pages', array( 'post-new.php', 'page-new.php', 'post.php', 'page.php' ) ) ) ) {
 				add_action( 'admin_head', array( $this, 'video_thumbnail_script' ) );
 			}
@@ -84,19 +84,23 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 		 * @return array
 		 */
 		public function get_vimeo_info( $id, $info = 'thumbnail_large' ) {
-			
+
+			if ( ! $id ) {
+				return;
+			}
+
 			$videoinfo_url = "http://vimeo.com/api/v2/video/$id.php";
 			$response = wp_remote_get( $videoinfo_url , array( 'timeout' => 10 ) );
 
 			if ( is_array( $response ) ) {
-				$body = $response['body']; // use the content
+				$body = $response['body']; // use the content.
 				$output = unserialize( $body );
 				$output = $output[0][ $info ];
 			} else {
 				$output = sprintf(
 					wp_kses( __(
 						'Error retrieving video information from the URL <a href="%1$s">%1$s</a>. If opening that URL in your web browser returns anything else than an error page, the problem may be related to your web server and might be something your host administrator can solve.',
-						'wolf-videos' 
+						'wolf-videos'
 						),
 						array( 'a' => array( 'href' => array() ) )
 					)
@@ -119,10 +123,10 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 			$content = get_post_field( 'post_content', $post_id );
 
 			$has_video_url = preg_match( '#youtube(?:\-nocookie)?\.com/watch\?v=([A-Za-z0-9\-_]+)#', $content, $match )
-			|| preg_match( '#youtube(?:\-nocookie)?\.com/v/([A-Za-z0-9\-_]+)#', $content, $match ) 
+			|| preg_match( '#youtube(?:\-nocookie)?\.com/v/([A-Za-z0-9\-_]+)#', $content, $match )
 			|| preg_match( '#youtube(?:\-nocookie)?\.com/embed/([A-Za-z0-9\-_]+)#', $content, $match )
 			|| preg_match( '#youtu.be/([A-Za-z0-9\-_]+)#', $content, $match )
-			
+
 			|| preg_match( '#vimeo\.com/([0-9]+)#', $content, $match )
 			|| preg_match( '#player.vimeo.com/video/([0-9]+)#', $content, $match );
 
@@ -146,15 +150,15 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 
 				if ( preg_match( '#player\.vimeo\.com/video/([0-9]+)#', $url, $match ) ) {
 					$url = str_replace( 'player.vimeo.com/video', 'vimeo.com', $url );
-				}	
+				}
 
-				if ( 
-					preg_match( '#vimeo\.com/([A-Za-z0-9\-_]+)#', $url, $match ) 
+				if (
+					preg_match( '#vimeo\.com/([A-Za-z0-9\-_]+)#', $url, $match )
 
 				) {
 					if ( $match && isset( $match[1] ) ) {
 						$vimeo_thumbnail = $this->get_vimeo_info( $match[1], $info = 'thumbnail_large' );
-					
+
 					}
 				}
 			}
@@ -175,9 +179,9 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 
 			if ( $url ) {
 
-				if ( 
+				if (
 					preg_match( '#youtube(?:\-nocookie)?\.com/watch\?v=([A-Za-z0-9\-_]+)#', $url, $match )
-					|| preg_match( '#youtube(?:\-nocookie)?\.com/v/([A-Za-z0-9\-_]+)#', $url, $match ) 
+					|| preg_match( '#youtube(?:\-nocookie)?\.com/v/([A-Za-z0-9\-_]+)#', $url, $match )
 					|| preg_match( '#youtube(?:\-nocookie)?\.com/embed/([A-Za-z0-9\-_]+)#', $url, $match )
 					|| preg_match( '#youtu.be/([A-Za-z0-9\-_]+)#', $url, $match )
 				) {
@@ -191,7 +195,7 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 
 						// Get the best quality available
 						foreach ( $image_qualities  as $image_quality ) {
-			
+
 							if ( @getimagesize( ( 'http://i.ytimg.com/vi/'. $youtube_id. '/'.$image_quality.'.jpg' ) ) ) {
 								$youtube_thumbnail = "http://i.ytimg.com/vi/$youtube_id/$image_quality.jpg";
 								//debug($image_quality);
@@ -204,7 +208,7 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 			}
 
 			return $youtube_thumbnail;
-			
+
 		}
 
 		/**
@@ -219,11 +223,11 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 
 			// if vimeo
 			if ( $this->get_vimeo_thumbnail( $post_id ) ) {
-					
+
 				$thumbnail = $this->get_vimeo_thumbnail( $post_id );
 
 			} elseif ( $this->get_youtube_thumbnail( $post_id ) ) {
-					
+
 				$thumbnail = $this->get_youtube_thumbnail( $post_id );
 
 			}
@@ -260,13 +264,13 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 					'numberposts' => null,
 					'post_status' => null,
 					'post_parent' => $post_id,
-				); 
+				);
 				$attachments = get_posts( $args );
 
 				if ( $attachments ) {
 
 					foreach ( $attachments as $attachment ) {
-						
+
 						if ( get_post_meta( $attachment->ID, '_video_thumbnail_url', true ) == $new_thumbnail ) {
 							$attachment_id = $attachment->ID;
 							break;
@@ -283,14 +287,14 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 
 					//  if not already attached, we upload it in the library
 					if ( ! $attachment_id ) {
-						
+
 						// upload the image and attach it to the post
 						$file = media_sideload_image( $new_thumbnail , $post_id );
 
 						if ( $file && preg_match( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/', $file , $match ) ) {
 
 							if ( isset( $match[1] ) ) {
-								
+
 								$attachment_url = $match[1];
 								$attachment_id  = $this->get_attachment_id_from_url( $post_id, $attachment_url );
 							}
@@ -308,7 +312,7 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 						add_post_meta( $post_id, '_thumbnail_id', $attachment_id, true ) or
 						update_post_meta( $post_id, '_thumbnail_id', $attachment_id );
 					}
-					
+
 				// if the retrieven thumbnail is already saved as post meta
 				} elseif ( $meta == $new_thumbnail ) {
 
@@ -338,7 +342,7 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 				$query = $wpdb->prepare( "SELECT $post_table.ID FROM $post_table WHERE $post_table.guid= %s;", $attachment_url );
 				$attachment = $wpdb->get_col( $query );
 				return $attachment[0];
-		
+
 			}
 		}
 
@@ -349,7 +353,7 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 		 * @return string
 		 */
 		public function video_thumbnail( $post_id = null ) {
-			
+
 			if ( ( $video_thumbnail = $this->set_video_thumbnail( $post_id ) ) != null ) {
 				echo wp_kses( $video_thumbnail, array(
 						'img' => array(
@@ -369,19 +373,19 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 		 * @return void
 		 */
 		public function add_metabox() {
-			
+
 			$post_types = $this->get_post_types();
-			
+
 			if ( is_array( $post_types ) ) {
-				
+
 				foreach ( $post_types as $type ) {
 					add_meta_box(
-						'video_thumbnail', 
-						'Video Thumbnail', 
+						'video_thumbnail',
+						'Video Thumbnail',
 						array( $this, 'render_metabox' ),
 						$type,
-						'side', 
-						'low' 
+						'side',
+						'low'
 					);
 				}
 			}
@@ -393,62 +397,64 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 		 * @return void
 		 */
 		public function render_metabox() {
-			
+
 			global $post;
-			
+
 			$post_id = $post->ID;
 
 			$custom = get_post_custom( $post_id );
-			
+
+			debug( $custom );
+
 			if ( isset( $custom['_video_thumbnail'][0] ) ) {
-			
+
 				$video_thumbnail = $custom['_video_thumbnail'][0];
-			
+
 			} else {
 				$video_thumbnail = '';
 			}
 
 			if ( isset( $video_thumbnail ) && $video_thumbnail != '' ) {
-				
-				echo "<p id='video-thumbnail-preview'><img src='$video_thumbnail'></p>";	
-			
+
+				echo "<p id='video-thumbnail-preview'><img src='$video_thumbnail'></p>";
+
 			}
 
-			if ( get_post_status() == 'publish' || get_post_status() == 'private' ) {
-				
-				if ( isset( $video_thumbnail ) && $video_thumbnail != '' ) {
-					
+			if ( get_post_status() === 'publish' || get_post_status() === 'private' ) {
+
+				if ( isset( $video_thumbnail ) && $video_thumbnail !== '' ) {
+
 					echo '<p id="video-thumbnail-action">';
 					echo '<a href="#" id="video-thumbnail-reset" onClick="video_thumbnail_reset(\'' . $post_id . '\' );return false;">' . $this->get_text( 'reset' ) . '</a>';
 					echo '<a href="#" id="video-thumbnail-delete" onClick="video_thumbnail_delete(\'' . $post_id . '\' );return false;">' . $this->get_text( 'delete' ) . '</a>';
 					echo '</p>';
-				
+
 				} elseif ( $this->get_video_url( $post_id ) ) {
-					
+
 					echo '<p id="video-thumbnail-preview">';
 					echo sanitize_text_field( $this->get_text( 'has_video' ) );
 					echo '</p>';
-					
+
 					echo '<p id="video-thumbnail-action">';
 					echo '<a href="#" id="video-thumbnail-reset" onClick="video_thumbnail_reset(\'' . $post_id . '\' );return false;">' . $this->get_text( 'generate' ) . '</a>';
 					echo '</a></p>';
-			
+
 				} else {
 					echo sanitize_text_field( $this->get_text( 'no_video' ) );
 				}
 			} else {
 				if ( isset( $video_thumbnail ) && $video_thumbnail != '' ) {
-					
+
 					echo '<p id="video-thumbnail-action">';
 					echo '<a href="#" id="video-thumbnail-reset" onClick="video_thumbnail_reset(\'' . $post_id . '\' );return false;">' . esc_html__( 'Reset', 'wolf-videos' ) . '</a>';
 					echo '<a href="#" id="video-thumbnail-delete" onClick="video_thumbnail_delete(\'' . $post_id . '\' );return false;">' . esc_html__( 'Delete', 'wolf-videos' ) . '</a>';
 					echo '</p>';
-					
+
 				} else {
 					echo '<p>';
-					
+
 					echo sanitize_text_field( $this->get_text( 'not_published' ) );
-					
+
 					echo '</p>';
 				}
 			}
@@ -468,7 +474,7 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 
 				var removeFeaturedImg = '<p id="video-custom-remove" class="hide-if-no-js"><a href="#" id="remove-post-thumbnail" onclick="wolf_thumbnail_delete( ' + id + ' );return false;"><?php esc_html_e( 'Remove featured image', 'wolf-videos' ); ?></a></p>';
 					var resetText = '<?php echo esc_js( $this->get_text( 'reset' ) ); ?>';
-					var deleteText = '<?php echo esc_js( $this->get_text( 'delete' ) ); ?>';			
+					var deleteText = '<?php echo esc_js( $this->get_text( 'delete' ) ); ?>';
 					var deleteLink = "<a href='#' id='video-thumbnail-delete' onClick='video_thumbnail_delete( " + id + " );return false;'>" + deleteText + "</a>";
 
 				var data = {
@@ -481,14 +487,14 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 
 				// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
 				jQuery.post( ajaxurl, data, function( response ) {
-					
+
 					document.getElementById( 'video-thumbnail-preview' ).innerHTML= response;
-					
+
 					//jQuery( '#postimagediv .inside #set-post-thumbnail' ).empty().html( response );
 					jQuery( '#remove-post-thumbnail' ).remove();
 					jQuery( '#video-thumbnail-delete' ).remove();
-					
-					
+
+
 
 					//jQuery( '#postimagediv .inside' ).append( removeFeaturedImg );
 					jQuery( '#video-thumbnail-action' ).append( deleteLink );
@@ -511,7 +517,7 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 					jQuery( '#video-thumbnail-delete' ).remove();
 					jQuery( '#video-thumbnail-preview' ).empty().append( message );
 					jQuery( '#video-thumbnail-action' ).empty().append( deleteLink );
-					
+
 				} );
 			}
 
@@ -567,19 +573,19 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 		 * @return void
 		 */
 		public function video_thumbnail_callback() {
-			
+
 			check_ajax_referer( 'wolf-video-thumbnail', 'security' );
 			$post_id = $_POST['post_id'];
 			$video_thumbnail = $this->set_video_thumbnail( $post_id );
 
 			if ( is_wp_error( $video_thumbnail ) ) {
-				
+
 				echo sanitize_text_field( $video_thumbnail->get_error_message() );
-			
+
 			} else  if ( $video_thumbnail != null ) {
-				
+
 				echo '<img src="' . $video_thumbnail . '">';
-			
+
 			} else {
 				echo sanitize_text_field( $this->get_text( 'has_video' ) );
 			}
@@ -594,9 +600,9 @@ if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 		 * @return array
 		 */
 		public function get_text( $string ) {
-			
+
 			// Translatable string
-			$text = array( 
+			$text = array(
 				'no_video' => esc_html__( 'No video URL in the post.', 'wolf-videos' ),
 				'has_video' => esc_html__( 'A video has been attached to this post. Click on "Generate" to create a thumbnail from this video', 'wolf-videos' ),
 				'not_published' => esc_html__( 'You will be able to generate a video thumbnail and use it as featured image for this post when it is published.', 'wolf-videos' ),

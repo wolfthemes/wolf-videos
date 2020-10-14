@@ -20,13 +20,13 @@ class WV_Admin {
 	 */
 	public function __construct() {
 
-		// Includes files
+		// Includes files.
 		$this->includes();
 
-		// Set metaboxes
+		// Set metaboxes.
 		$this->metaboxes();
 
-		// Admin init hooks
+		// Admin init hooks.
 		$this->admin_init_hooks();
 	}
 
@@ -36,7 +36,7 @@ class WV_Admin {
 	public function includes() {
 		include_once( 'class-wv-options.php' );
 		include_once( 'class-wv-metabox.php' );
-		include_once( 'class-wv-video-thumbnail.php' );
+		// include_once( 'class-wv-video-thumbnail.php' );
 		include_once( 'wv-admin-functions.php' );
 	}
 

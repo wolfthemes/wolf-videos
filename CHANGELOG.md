@@ -1,5 +1,9 @@
 # Changelog
 
+#### 14th October 2020 - Version 1.2.9
+
+-   Tweak: Improved thumbnail generator script
+
 #### 26th August 2020 - Version 1.2.8
 
 -   Tweak: Unbrand plugin name

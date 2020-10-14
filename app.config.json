@@ -1,6 +1,6 @@
 {
-	"version": "1.2.8",
-	"updated": "2020-08-26",
+	"version": "1.2.9",
+	"updated": "2020-10-14",
 	"slug": "wolf-videos",
 	"name": "Videos",
 	"packagename": "WolfVideos",
@@ -8,7 +8,7 @@
 	"createdNice": "19th november 2013",
 	"description": "A video gallery post type for your site.",
 	"link": "https://github.com/wolfthemes/wolf-videos/",
-	"shortlink": "http://wlfthm.es/wolf-videos",
+	"shortlink": "https://wlfthm.es/videos",
 	"author": "WolfThemes",
 	"authorURI": "https://wolfthemes.com"
 }

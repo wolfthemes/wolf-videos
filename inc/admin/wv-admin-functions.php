@@ -23,9 +23,9 @@ function wvc_set_video_meta( $post_id ) {
 
 	/* Set video URL meta */
 	if ( wv_get_first_video_url( $post_id ) ) {
-		
+
 		update_post_meta( $post_id, '_wv_video_url', wv_get_first_video_url( $post_id ) );
-	
+
 	} else {
 		delete_post_meta( $post_id, '_wv_video_url' );
 	}
@@ -36,10 +36,10 @@ function wvc_set_video_meta( $post_id ) {
 		$iframe = null;
 
 		$video_url = wv_get_first_video_url( $post_id );
-		
+
 		$has_yt_url =
 			preg_match( '#youtube(?:\-nocookie)?\.com/watch\?v=([A-Za-z0-9\-_]+)#', $video_url, $match )
-			|| preg_match( '#youtube(?:\-nocookie)?\.com/v/([A-Za-z0-9\-_]+)#', $video_url, $match ) 
+			|| preg_match( '#youtube(?:\-nocookie)?\.com/v/([A-Za-z0-9\-_]+)#', $video_url, $match )
 			|| preg_match( '#youtube(?:\-nocookie)?\.com/embed/([A-Za-z0-9\-_]+)#', $video_url, $match )
 			|| preg_match( '#youtu.be/([A-Za-z0-9\-_]+)#', $video_url, $match );
 
@@ -50,12 +50,12 @@ function wvc_set_video_meta( $post_id ) {
 
 			$iframe = '<iframe class="wv-yt" width="560" height="315" src="https://www.youtube.com/embed/' . esc_attr( $yt_id ) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 
-			update_post_meta( $post_id, 'wv_video_id', $yt_id );
-			update_post_meta( $post_id, '_wv_video_iframe', $iframe );
+			//update_post_meta( $post_id, 'wv_video_id', $yt_id );
+			//update_post_meta( $post_id, '_wv_video_iframe', $iframe );
 
 			$iframe_bg = '<iframe class="wv-yt-bg" src="https://www.youtube.com/embed/' . esc_attr( $yt_id ) . '?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=W0LHTWG-UmQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 
-			update_post_meta( $post_id, '_wv_video_iframe_bg', $iframe_bg );
+			//update_post_meta( $post_id, '_wv_video_iframe_bg', $iframe_bg );
 
 		/* If vimeo */
 		} elseif ( preg_match( '#vimeo\.com/([0-9]+)#', $video_url, $match ) ) {
@@ -64,21 +64,21 @@ function wvc_set_video_meta( $post_id ) {
 
 			$iframe = '<iframe class="wv-vimeo" src="https://player.vimeo.com/video/' . esc_attr( $vimeo_id ) . '?color=ffffff&title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
-			update_post_meta( $post_id, '_wv_video_iframe', $iframe );
+			//update_post_meta( $post_id, '_wv_video_iframe', $iframe );
 
 			$iframe_bg = '<iframe class="wv-vimeo-bg" src="https://player.vimeo.com/video/' . esc_attr( $vimeo_id ) . '?autoplay=1&loop=1&byline=0&title=0&background=1"></iframe>';
 
-			update_post_meta( $post_id, '_wv_video_iframe_bg', $iframe_bg );
+			//update_post_meta( $post_id, '_wv_video_iframe_bg', $iframe_bg );
 
 
 		// preg_match( '/(http:|https:)?\/\/[a-zA-Z0-9\/.?&=_-]+.mp4/', $content, $match
 
-		} elseif ( preg_match( '/(http:|https:)?\/\/[a-zA-Z0-9\/.?&=_-]+.mp4/', $video_url, $match ) ) {		
+		} elseif ( preg_match( '/(http:|https:)?\/\/[a-zA-Z0-9\/.?&=_-]+.mp4/', $video_url, $match ) ) {
 
 			$iframe = '<video src="' . esc_url( $video_url ) . '" autoplay></video>';
 
-			update_post_meta( $post_id, '_wv_video_iframe', $iframe );
-		
+			//update_post_meta( $post_id, '_wv_video_iframe', $iframe );
+
 		} else {
 			delete_post_meta( $post_id, 'wv_video_video_id' );
 			delete_post_meta( $post_id, '_wv_video_iframe' );
@@ -86,6 +86,17 @@ function wvc_set_video_meta( $post_id ) {
 
 	} else {
 		delete_post_meta( $post_id, '_wv_video_iframe' );
+	}
+
+	/* Remove old unused meta */
+	if ( get_post_meta( $post_id, 'wv_video_video_id' ) ) {
+		delete_post_meta( $post_id, 'wv_video_video_id' );
+	}
+	if ( get_post_meta( $post_id, '_wv_video_iframe' ) ) {
+		delete_post_meta( $post_id, '_wv_video_iframe' );
+	}
+	if ( get_post_meta( $post_id, '_wv_video_iframe_bg' ) ) {
+		delete_post_meta( $post_id, '_wv_video_iframe_bg' );
 	}
 
 }
@@ -142,12 +153,12 @@ function wv_get_first_video_url( $post_id = null ) {
  * @param object $post
  * @return array $states
  */
-function wv_custom_post_states( $states, $post ) { 
+function wv_custom_post_states( $states, $post ) {
 
 	if ( 'page' == get_post_type( $post->ID ) && absint( $post->ID ) === wolf_videos_get_page_id() ) {
 
 		$states[] = esc_html__( 'Videos Page' );
-	} 
+	}
 
 	return $states;
 }
