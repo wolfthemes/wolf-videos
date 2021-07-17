@@ -11,6 +11,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+debug(  class_exists( 'Wolf_Videos_Thumbnail_Generator' ) );
+
 if ( ! class_exists( 'Wolf_Videos_Thumbnail_Generator' ) ) {
 
 	/**

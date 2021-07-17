@@ -34,10 +34,10 @@ class WV_Admin {
 	 * Include any classes we need within admin.
 	 */
 	public function includes() {
-		include_once( 'class-wv-options.php' );
-		include_once( 'class-wv-metabox.php' );
+		include_once 'class-wv-options.php';
+		include_once 'class-wv-metabox.php';
 		// include_once( 'class-wv-video-thumbnail.php' );
-		include_once( 'wv-admin-functions.php' );
+		include_once 'wv-admin-functions.php';
 	}
 
 	/**
@@ -49,7 +49,7 @@ class WV_Admin {
 		add_filter( 'plugin_action_links_' . plugin_basename( WV_PATH ), array( $this, 'settings_action_links' ) );
 
 		// Plugin update notifications
-		//add_action( 'admin_init', array( $this, 'plugin_update' ) );
+		// add_action( 'admin_init', array( $this, 'plugin_update' ) );
 
 		// Check events index page
 		add_action( 'admin_notices', array( $this, 'check_page' ) );
@@ -69,14 +69,13 @@ class WV_Admin {
 	 * Add metaboxes
 	 */
 	public function metaboxes() {
-		include_once( 'wv-metaboxes.php' );
+		include_once 'wv-metaboxes.php';
 	}
 
 	/**
 	 * Check videos page
 	 *
 	 * Display a notification if we can't get the videos page id
-	 *
 	 */
 	public function check_page() {
 
@@ -87,11 +86,13 @@ class WV_Admin {
 		// delete_option( '_wolf_videos_no_needs_page', true );
 		// delete_option( '_wolf_videos_page_id' );
 
-		if ( get_option( '_wolf_videos_no_needs_page' ) )
+		if ( get_option( '_wolf_videos_no_needs_page' ) ) {
 			return;
+		}
 
-		if ( ! get_option( '_wolf_videos_needs_page' ) )
+		if ( ! get_option( '_wolf_videos_needs_page' ) ) {
 			return;
+		}
 
 		if ( -1 == wolf_videos_get_page_id() && ! isset( $_GET['wolf_videos_create_page'] ) ) {
 
@@ -103,46 +104,48 @@ class WV_Admin {
 			update_option( '_wolf_videos_needs_page', true );
 
 			$message = '<strong>Wolf Videos</strong> ' . sprintf(
-					wp_kses(
-						__( 'says : <em>Almost done! you need to <a href="%1$s">create a page</a> for your videos or <a href="%2$s">select an existing page</a> in the plugin settings</em>.', 'wolf-videos' ),
-						array(
-							'a' => array(
-								'href' => array(),
-								'class' => array(),
-								'title' => array(),
-							),
-							'br' => array(),
-							'em' => array(),
-							'strong' => array(),
-						)
-					),
-					esc_url( admin_url( '?wolf_videos_create_page=true' ) ),
-					esc_url( admin_url( 'edit.php?post_type=video&page=wolf-videos-settings' ) )
+				wp_kses(
+					__( 'says : <em>Almost done! you need to <a href="%1$s">create a page</a> for your videos or <a href="%2$s">select an existing page</a> in the plugin settings</em>.', 'wolf-videos' ),
+					array(
+						'a'      => array(
+							'href'  => array(),
+							'class' => array(),
+							'title' => array(),
+						),
+						'br'     => array(),
+						'em'     => array(),
+						'strong' => array(),
+					)
+				),
+				esc_url( admin_url( '?wolf_videos_create_page=true' ) ),
+				esc_url( admin_url( 'edit.php?post_type=video&page=wolf-videos-settings' ) )
 			);
 
 			$message .= sprintf(
 				wp_kses(
-					__( '<br><br>
+					__(
+						'<br><br>
 					<a href="%1$s" class="button button-primary">Create a page</a>
 					&nbsp;
 					<a href="%2$s" class="button button-primary">Select an existing page</a>
 					&nbsp;
-					<a href="%3$s" class="button">Skip setup</a>', 'wolf-videos' ),
-
+					<a href="%3$s" class="button">Skip setup</a>',
+						'wolf-videos'
+					),
 					array(
-							'a' => array(
-								'href' => array(),
-								'class' => array(),
-								'title' => array(),
-							),
-							'br' => array(),
-							'em' => array(),
-							'strong' => array(),
-						)
+						'a'      => array(
+							'href'  => array(),
+							'class' => array(),
+							'title' => array(),
+						),
+						'br'     => array(),
+						'em'     => array(),
+						'strong' => array(),
+					)
 				),
-					esc_url( admin_url( '?wolf_videos_create_page=true' ) ),
-					esc_url( admin_url( 'edit.php?post_type=video&page=wolf-videos-settings' ) ),
-					esc_url( admin_url( '?skip_wolf_videos_setup=true' ) )
+				esc_url( admin_url( '?wolf_videos_create_page=true' ) ),
+				esc_url( admin_url( 'edit.php?post_type=video&page=wolf-videos-settings' ) ),
+				esc_url( admin_url( '?skip_wolf_videos_setup=true' ) )
 			);
 
 			$output = '<div class="updated wolf-admin-notice wolf-plugin-admin-notice"><p>';
@@ -194,7 +197,6 @@ class WV_Admin {
 
 				echo $output;
 			}
-
 		}
 
 		return false;
@@ -252,7 +254,7 @@ class WV_Admin {
 	 */
 	public function admin_columns_head_video_thumb( $columns ) {
 
-		$columns['video_thumbnail']   = esc_html__( 'Thumbnail', 'wolf-videos' );
+		$columns['video_thumbnail'] = esc_html__( 'Thumbnail', 'wolf-videos' );
 		return $columns;
 	}
 
@@ -260,7 +262,7 @@ class WV_Admin {
 	 * Add thumbnail column in admin posts list
 	 *
 	 * @param string $column_name
-	 * @param int $post_id
+	 * @param int    $post_id
 	 */
 	public function admin_columns_content_video_thumb( $column_name, $post_id ) {
 
@@ -289,13 +291,13 @@ class WV_Admin {
 	 */
 	public function plugin_update() {
 
-		$plugin_name = WV_SLUG;
-		$plugin_slug = WV_SLUG;
-		$plugin_path = WV_PATH;
-		$remote_path = WV_UPDATE_URL . '/' . $plugin_slug;
-		$plugin_data = get_plugin_data( WV_DIR . '/' . WV_SLUG . '.php' );
+		$plugin_name     = WV_SLUG;
+		$plugin_slug     = WV_SLUG;
+		$plugin_path     = WV_PATH;
+		$remote_path     = WV_UPDATE_URL . '/' . $plugin_slug;
+		$plugin_data     = get_plugin_data( WV_DIR . '/' . WV_SLUG . '.php' );
 		$current_version = $plugin_data['Version'];
-		include_once( 'class-wv-update.php');
+		include_once 'class-wv-update.php';
 		new WV_Update( $current_version, $remote_path, $plugin_path );
 	}
 }
