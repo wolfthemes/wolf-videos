@@ -1,5 +1,9 @@
 # Changelog
 
+#### 17th July 2020 - Version 1.3.0
+
+-   Fix: wv_get_first_video_url PHP8 fix
+
 #### 14th October 2020 - Version 1.2.9
 
 -   Tweak: Improved thumbnail generator script

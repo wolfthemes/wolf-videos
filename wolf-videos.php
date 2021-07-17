@@ -3,7 +3,7 @@
  * Plugin Name: Videos
  * Plugin URI: https://wlfthm.es/wolf-videos
  * Description: A video gallery post type for your site.
- * Version: 1.2.9
+ * Version: 1.3.0
  * Author: WolfThemes
  * Author URI: https://wolfthemes.com
  * Requires at least: 5.0
@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
  * Contains the main functions for Wolf_Videos
  *
  * @class Wolf_Videos
- * @version 1.2.9
+ * @version 1.3.0
  * @since 1.0.0
  * @package WolfDiscography
  * @author WolfThemes
@@ -44,7 +44,7 @@ class Wolf_Videos {
 	/**
 	 * @var string
 	 */
-	public $version = '1.2.9';
+	public $version = '1.3.0';
 
 	/**
 	 * @var Videos The single instance of the class
