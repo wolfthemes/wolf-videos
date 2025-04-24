@@ -1,5 +1,9 @@
 # Changelog
 
+#### 24th April 2025 - Version 1.3.1
+
+-   Fix: Prevent loading_plugin_text notice message
+
 #### 17th July 2020 - Version 1.3.0
 
 -   Fix: wv_get_first_video_url PHP8 fix
