@@ -6,7 +6,7 @@
  * @author WolfThemes
  * @category Admin
  * @package WolfVideos/Admin
- * @version 1.3.1
+ * @version 1.4.0
  */
 
 namespace WolfVideos\Admin;

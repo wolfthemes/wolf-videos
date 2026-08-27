@@ -3,11 +3,11 @@
  * Plugin Name: Videos
  * Plugin URI: https://wlfthm.es/wolf-videos
  * Description: A video gallery post type for your site.
- * Version: 1.3.1
+ * Version: 1.4.0
  * Author: WolfThemes
  * Author URI: https://wolfthemes.com
  * Requires at least: 6.0
- * Tested up to: 6.8
+ * Tested up to: 7.1
  *
  * Text Domain: wolf-videos
  * Domain Path: /languages/

@@ -5,7 +5,7 @@
  * @author WolfThemes
  * @category Core
  * @package WolfVideos/Admin
- * @version 1.3.1
+ * @version 1.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

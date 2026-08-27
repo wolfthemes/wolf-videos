@@ -1,5 +1,13 @@
 # Changelog
 
+#### 27th August 2026 - Version 1.4.0
+
+-   Refactor: namespaced to `WolfVideos\*`, with legacy `Wolf_Videos`/`WV_*` class aliases kept for backward compatibility
+-   Feature: `video` post type and `video_type`/`video_tag` taxonomies exposed to REST and WPGraphQL
+-   Feature: added self-hosted updater (`Core\Updater`) alongside the legacy GitHub updater during the transition
+-   Fix: security review findings in the update checker and admin page-creation flow
+-   Tested up to WordPress 7.1
+
 #### 24th April 2025 - Version 1.3.1
 
 -   Fix: Prevent loading_plugin_text notice message

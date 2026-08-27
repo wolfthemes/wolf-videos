@@ -19,7 +19,7 @@ class Updater {
 	const FILE     = 'wolf-videos/wolf-videos.php';
 
 	public function __construct() {
-		// Priority 20 so this wins over the legacy GitHub updater during the 1.3.1 transition.
+		// Priority 20 so this wins over the legacy GitHub updater during the 1.4.0 transition.
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ), 20 );
 		add_filter( 'plugins_api', array( $this, 'plugin_info' ), 10, 3 );
 		add_filter( 'upgrader_post_install', array( $this, 'post_install' ), 10, 3 );
