@@ -1,0 +1,83 @@
+name: Build & Deploy
+
+on:
+  push:
+    # ponytail: deploying from dev during the namespace/updater transition — switch to
+    # `branches: [ master ]` once this becomes the stable release branch.
+    branches: [ dev ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read app.config.json
+        id: config
+        run: |
+          echo "version=$(jq -r '.version' app.config.json)" >> $GITHUB_OUTPUT
+          echo "name=$(jq -r '.name' app.config.json)" >> $GITHUB_OUTPUT
+          echo "description=$(jq -r '.description' app.config.json)" >> $GITHUB_OUTPUT
+          echo "download_url=$(jq -r '.download_url' app.config.json)" >> $GITHUB_OUTPUT
+          echo "author=$(jq -r '.author' app.config.json)" >> $GITHUB_OUTPUT
+          echo "author_uri=$(jq -r '.authorURI' app.config.json)" >> $GITHUB_OUTPUT
+          echo "requires=$(jq -r '.requires' app.config.json)" >> $GITHUB_OUTPUT
+          echo "requires_php=$(jq -r '.requires_php' app.config.json)" >> $GITHUB_OUTPUT
+          echo "tested=$(jq -r '.tested' app.config.json)" >> $GITHUB_OUTPUT
+
+      - name: Generate info.json
+        run: |
+          cat > info.json << EOF
+          {
+            "version": "${{ steps.config.outputs.version }}",
+            "name": "${{ steps.config.outputs.name }}",
+            "description": "${{ steps.config.outputs.description }}",
+            "download_url": "${{ steps.config.outputs.download_url }}",
+            "homepage": "${{ steps.config.outputs.author_uri }}",
+            "author": "${{ steps.config.outputs.author }}",
+            "requires": "${{ steps.config.outputs.requires }}",
+            "requires_php": "${{ steps.config.outputs.requires_php }}",
+            "tested": "${{ steps.config.outputs.tested }}",
+            "changelog": ""
+          }
+          EOF
+
+      - name: Print info.json
+        run: cat info.json
+
+      - name: Create clean zip
+        run: |
+          rsync -av --exclude-from='.distignore' ./ /tmp/wolf-videos/
+          cd /tmp
+          zip -r wolf-videos.zip wolf-videos/
+
+      - name: Print zip contents
+        run: zipinfo /tmp/wolf-videos.zip
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Upload to server
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+            ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
+            "mkdir -p ${{ secrets.DEPLOY_PATH }}"
+
+          scp -i ~/.ssh/deploy_key \
+            /tmp/wolf-videos.zip \
+            ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/wolf-videos.zip
+
+          scp -i ~/.ssh/deploy_key \
+            info.json \
+            ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/info.json
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

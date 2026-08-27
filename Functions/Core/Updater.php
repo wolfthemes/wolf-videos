@@ -46,7 +46,12 @@ class Updater {
 
 			$data = json_decode( wp_remote_retrieve_body( $response ) );
 
-			if ( empty( $data->version ) ) {
+			// Validate the payload shape before trusting it as an update source.
+			if (
+				empty( $data->version ) || ! preg_match( '/^[0-9][0-9A-Za-z.\-]*$/', $data->version )
+				|| empty( $data->download_url ) || ! wp_http_validate_url( $data->download_url )
+				|| 'https' !== wp_parse_url( $data->download_url, PHP_URL_SCHEME )
+			) {
 				return false;
 			}
 
@@ -75,8 +80,8 @@ class Updater {
 				'slug'        => self::SLUG,
 				'plugin'      => self::FILE,
 				'new_version' => $info->version,
-				'package'     => $info->download_url,
-				'url'         => $info->homepage ?? '',
+				'package'     => esc_url_raw( $info->download_url ),
+				'url'         => isset( $info->homepage ) ? esc_url_raw( $info->homepage ) : '',
 			);
 		}
 
@@ -106,19 +111,21 @@ class Updater {
 			return $plugin_info;
 		}
 
+		// Everything below is rendered as HTML in the wp-admin "View details" iframe —
+		// sanitize the remote payload rather than trusting it verbatim.
 		return (object) array(
-			'name'          => $info->name          ?? 'Videos',
+			'name'          => isset( $info->name ) ? wp_strip_all_tags( $info->name ) : 'Videos',
 			'slug'          => self::SLUG,
 			'version'       => $info->version,
-			'requires'      => $info->requires      ?? '6.0',
-			'requires_php'  => $info->requires_php  ?? '7.4',
-			'tested'        => $info->tested         ?? '',
-			'author'        => $info->author         ?? 'WolfThemes',
-			'homepage'      => $info->homepage       ?? '',
-			'download_link' => $info->download_url,
+			'requires'      => isset( $info->requires ) ? wp_strip_all_tags( $info->requires ) : '6.0',
+			'requires_php'  => isset( $info->requires_php ) ? wp_strip_all_tags( $info->requires_php ) : '7.4',
+			'tested'        => isset( $info->tested ) ? wp_strip_all_tags( $info->tested ) : '',
+			'author'        => isset( $info->author ) ? wp_kses_post( $info->author ) : 'WolfThemes',
+			'homepage'      => isset( $info->homepage ) ? esc_url_raw( $info->homepage ) : '',
+			'download_link' => esc_url_raw( $info->download_url ),
 			'sections'      => array(
-				'description' => $info->description  ?? '',
-				'changelog'   => $info->changelog    ?? '',
+				'description' => isset( $info->description ) ? wp_kses_post( $info->description ) : '',
+				'changelog'   => isset( $info->changelog ) ? wp_kses_post( $info->changelog ) : '',
 			),
 		);
 	}
@@ -143,6 +150,10 @@ class Updater {
 		}
 
 		global $wp_filesystem;
+
+		if ( empty( $wp_filesystem ) || empty( $result['destination'] ) ) {
+			return $result;
+		}
 
 		$proper = WP_PLUGIN_DIR . '/' . self::SLUG;
 		$wp_filesystem->move( $result['destination'], $proper );

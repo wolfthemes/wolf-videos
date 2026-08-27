@@ -1,0 +1,37 @@
+# Dev tooling
+.distignore
+.editorconfig
+.eslintrc.js
+.gitattributes
+.gitignore
+.prettierrc
+.stylelintrc.json
+phpcs.xml.dist
+
+# Node
+node_modules/
+package.json
+package-lock.json
+
+# Composer dev
+composer.json
+composer.lock
+
+# Project meta
+app.config.json
+README.md
+
+# Build tooling / artifacts
+dev/
+pack/
+bak/
+
+# GitHub
+.github/
+
+.vscode/
+
+# Git
+.git/
+
+info.json
