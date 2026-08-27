@@ -117,7 +117,7 @@ class Admin {
 						'strong' => array(),
 					)
 				),
-				esc_url( admin_url( '?wolf_videos_create_page=true' ) ),
+				esc_url( wp_nonce_url( admin_url( '?wolf_videos_create_page=true' ), 'wolf_videos_create_page' ) ),
 				esc_url( admin_url( 'edit.php?post_type=video&page=wolf-videos-settings' ) )
 			);
 
@@ -143,7 +143,7 @@ class Admin {
 						'strong' => array(),
 					)
 				),
-				esc_url( admin_url( '?wolf_videos_create_page=true' ) ),
+				esc_url( wp_nonce_url( admin_url( '?wolf_videos_create_page=true' ), 'wolf_videos_create_page' ) ),
 				esc_url( admin_url( 'edit.php?post_type=video&page=wolf-videos-settings' ) ),
 				esc_url( admin_url( '?skip_wolf_videos_setup=true' ) )
 			);
@@ -168,7 +168,11 @@ class Admin {
 	 */
 	public function create_page() {
 
-		if ( isset( $_GET['wolf_videos_create_page'] ) && $_GET['wolf_videos_create_page'] == 'true' ) {
+		if (
+			isset( $_GET['wolf_videos_create_page'] ) && $_GET['wolf_videos_create_page'] == 'true'
+			&& isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'wolf_videos_create_page' )
+			&& current_user_can( 'manage_options' )
+		) {
 
 			$output = '';
 

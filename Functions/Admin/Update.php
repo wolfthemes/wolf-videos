@@ -103,7 +103,7 @@ class Update {
 	public function getRemote_version() {
 
 		$request = wp_remote_post( $this->update_path, array( 'body' => array( 'action' => 'version' ) ) );
-		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
+		if ( ! is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) === 200 ) {
 			return $request['body'];
 		}
 		return false;
@@ -116,8 +116,10 @@ class Update {
 	 */
 	public function getRemote_information() {
 		$request = wp_remote_post( $this->update_path, array( 'body' => array( 'action' => 'info' ) ) );
-		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
-			return unserialize( $request['body'] );
+		if ( ! is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) === 200 ) {
+			// ponytail: remote update server returns PHP-serialized data, not JSON — allowed_classes:false
+			// blocks object-injection gadgets. Full fix is the server switching to JSON (see Core\Updater in wolf-portfolio).
+			return unserialize( $request['body'], array( 'allowed_classes' => false ) );
 		}
 		return false;
 	}
@@ -128,7 +130,7 @@ class Update {
 	 */
 	public function getRemote_license() {
 		$request = wp_remote_post( $this->update_path, array( 'body' => array( 'action' => 'license' ) ) );
-		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
+		if ( ! is_wp_error( $request ) && wp_remote_retrieve_response_code( $request ) === 200 ) {
 			return $request['body'];
 		}
 		return false;
