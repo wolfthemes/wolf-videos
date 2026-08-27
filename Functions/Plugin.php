@@ -109,6 +109,10 @@ class Plugin {
 		add_action( 'init', array( $this, 'init' ), 0 );
 		register_activation_hook( WV_PLUGIN_FILE, array( $this, 'activate' ) );
 
+		// New update system (downloads.wolfthemes.cloud info.json).
+		new Core\Updater();
+
+		// ponytail: legacy GitHub updater kept for the 1.3.1 transition only — remove once downloads.wolfthemes.cloud is confirmed live.
 		add_action( 'admin_init', array( $this, 'plugin_update' ) );
 	}
 
