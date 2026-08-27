@@ -3,7 +3,11 @@
  * Class by Omar Abid
  * https://github.com/omarabid/Self-Hosted-WordPress-Plugin-repository
  */
-class WV_Update {
+namespace WolfVideos\Admin;
+
+defined( 'ABSPATH' ) || exit;
+
+class Update {
 	/**
 	 * The plugin current version
 	 * @var string
@@ -65,7 +69,7 @@ class WV_Update {
 
 		// If a newer version is available, add the update
 		if ( version_compare( $this->current_version, $remote_version, '<' ) ) {
-			$obj = new stdClass();
+			$obj = new \stdClass();
 			$obj->slug = $this->slug;
 			$obj->new_version = $remote_version;
 			$obj->url = $this->update_path;
@@ -97,13 +101,13 @@ class WV_Update {
 	 * @return string $remote_version
 	 */
 	public function getRemote_version() {
-	
+
 		$request = wp_remote_post( $this->update_path, array( 'body' => array( 'action' => 'version' ) ) );
 		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
 			return $request['body'];
 		}
 		return false;
-	
+
 	}
 
 	/**

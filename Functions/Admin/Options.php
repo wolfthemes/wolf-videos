@@ -2,19 +2,21 @@
 /**
  * Videos Options.
  *
- * @class WV_Options
+ * @class Wolf_Videos_Options
  * @author WolfThemes
  * @category Admin
  * @package WolfVideos/Admin
- * @version 1.2.8
+ * @version 1.3.1
  */
+
+namespace WolfVideos\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WV_Options class.
+ * Options class.
  */
-class WV_Options {
+class Options {
 	/**
 	 * Constructor
 	 */
@@ -180,11 +182,9 @@ class WV_Options {
 			<form action="options.php" method="post">
 				<?php settings_fields( 'wolf-videos-settings' ); ?>
 				<?php do_settings_sections( 'wolf-videos-settings' ); ?>
-				<p class="submit"><input name="save" type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'wolf-videos' ); ?>" /></p>
+				<p class="submit"><input name="save" type="submit" class="button-primary" value="<?php esc_html_e( 'Save Changes', 'wolf-videos' ); ?>" /></p>
 			</form>
 		</div>
 		<?php
 	}
 }
-
-return new WV_Options();

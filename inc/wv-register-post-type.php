@@ -5,7 +5,7 @@
  * @author WolfThemes
  * @category Core
  * @package WolfVideos/Admin
- * @version 1.2.8
+ * @version 1.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -47,6 +47,13 @@ $args = array(
 
 	'description' => esc_html__( 'Present your video', 'wolf-videos' ),
 	'menu_icon' => 'dashicons-format-video',
+
+	// REST / GraphQL exposure
+	'show_in_rest' => true,
+	'rest_base' => 'videos',
+	'show_in_graphql' => true,
+	'graphql_single_name' => 'video',
+	'graphql_plural_name' => 'videos',
 );
 
-register_post_type( 'video', $args );
+register_post_type( 'video', apply_filters( 'wolf_video_post_type_args', $args ) );

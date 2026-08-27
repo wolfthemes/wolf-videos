@@ -5,7 +5,7 @@
  * @author WolfThemes
  * @category Core
  * @package WolfVideos/Admin
- * @version 1.2.8
+ * @version 1.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -39,9 +39,15 @@ $args = array(
 	'show_ui' => true,
 	'query_var' => true,
 	'rewrite' => array( 'slug' => 'video-type', 'with_front' => false ),
+
+	// REST / GraphQL exposure
+	'show_in_rest' => true,
+	'show_in_graphql' => true,
+	'graphql_single_name' => 'videoType',
+	'graphql_plural_name' => 'videoTypes',
 );
 
-register_taxonomy( 'video_type', array( 'video' ), $args );
+register_taxonomy( 'video_type', array( 'video' ), apply_filters( 'wolf_video_type_taxonomy_args', $args ) );
 
 $labels = array(
 	'name' => esc_html__( 'Tags', 'wolf-videos' ),
@@ -69,6 +75,12 @@ $args = array(
 	'update_count_callback' => '_update_post_term_count',
 	'query_var' => true,
 	'rewrite' => array( 'slug' => 'video-tag', 'with_front' => false),
+
+	// REST / GraphQL exposure
+	'show_in_rest' => true,
+	'show_in_graphql' => true,
+	'graphql_single_name' => 'videoTag',
+	'graphql_plural_name' => 'videoTags',
 );
 
-register_taxonomy( 'video_tag', array( 'video' ), $args );
+register_taxonomy( 'video_tag', array( 'video' ), apply_filters( 'wolf_video_tag_taxonomy_args', $args ) );

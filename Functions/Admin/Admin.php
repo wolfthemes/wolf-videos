@@ -2,19 +2,21 @@
 /**
  * Videos Admin.
  *
- * @class WV_Admin
+ * @class Wolf_Videos_Admin
  * @author WolfThemes
  * @category Admin
  * @package WolfVideos/Admin
- * @version 1.2.8
+ * @version 1.3.1
  */
+
+namespace WolfVideos\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WV_Admin class.
+ * Admin class.
  */
-class WV_Admin {
+class Admin {
 	/**
 	 * Constructor
 	 */
@@ -34,10 +36,8 @@ class WV_Admin {
 	 * Include any classes we need within admin.
 	 */
 	public function includes() {
-		include_once 'class-wv-options.php';
-		include_once 'class-wv-metabox.php';
-		// include_once( 'class-wv-video-thumbnail.php' );
-		include_once 'wv-admin-functions.php';
+		new Options();
+		include_once WV_DIR . '/inc/admin/wv-admin-functions.php';
 	}
 
 	/**
@@ -69,7 +69,7 @@ class WV_Admin {
 	 * Add metaboxes
 	 */
 	public function metaboxes() {
-		include_once 'wv-metaboxes.php';
+		include_once WV_DIR . '/inc/admin/wv-metaboxes.php';
 	}
 
 	/**
@@ -297,9 +297,6 @@ class WV_Admin {
 		$remote_path     = WV_UPDATE_URL . '/' . $plugin_slug;
 		$plugin_data     = get_plugin_data( WV_DIR . '/' . WV_SLUG . '.php' );
 		$current_version = $plugin_data['Version'];
-		include_once 'class-wv-update.php';
-		new WV_Update( $current_version, $remote_path, $plugin_path );
+		new Update( $current_version, $remote_path, $plugin_path );
 	}
 }
-
-return new WV_Admin();

@@ -2,20 +2,22 @@
 /**
  * Videos Shortcode.
  *
- * @class WV_Shortcode
+ * @class Wolf_Videos_Shortcode
  * @author WolfThemes
  * @category Core
- * @package WolfPageBuilder/Shortcode
- * @version 1.2.8
+ * @package WolfVideos/Shortcode
+ * @version 1.3.1
  * @since 1.2.6
  */
+
+namespace WolfVideos\Frontend;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * WV_Shortcode class.
+ * Shortcodes class.
  */
-class WV_Shortcode {
+class Shortcodes {
 	/**
 	 * Constructor
 	 */
@@ -73,11 +75,11 @@ class WV_Shortcode {
 		$class = 'shortcode-video-grid';
 		$class .= ' video-grid-col-' . absint( $col );
 		$class .= ' shortcode-video-padding-' . esc_attr( $padding );
-			
+
 		add_filter( 'posts_where', array( $this, 'filter_where' ) );
-		$loop = new WP_Query( $args );
+		$loop = new \WP_Query( $args );
 		remove_filter( 'posts_where', array( $this, 'filter_where' ) );
-		
+
 		if ( $loop->have_posts() ) : ?>
 			<div class="<?php echo $class; ?>" data-animation-parent="<?php echo esc_attr( $animation ); ?>">
 				<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
@@ -111,5 +113,3 @@ class WV_Shortcode {
 	}
 
 } // end class
-
-return new WV_Shortcode();
